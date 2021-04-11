@@ -1,0 +1,13 @@
+<div class="client-menu" *ngIf="showMenu">
+  <button class="client-menu-button"
+    (click)="newClient()">Новая анкета</button>
+
+  <button class="client-menu-button"
+          (click)="showClients()">Выбрать пациента</button>
+</div>
+
+<app-client-form *ngIf="showClientForm"></app-client-form>
+
+<div class="clients-list" *ngIf="displayList">
+
+</div>
