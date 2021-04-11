@@ -6,11 +6,11 @@
           (click)="showClients()">Выбрать пациента</button>
 </div>
 
-<app-client-form *ngIf="clientService.isNewClientSession()"></app-client-form>
+<app-client-form *ngIf="regService.isNewClientSession()"></app-client-form>
 
 <div class="clients-list" *ngIf="clientService.isSelectClientSession()">
   <ul *ngIf="clientService.clients.length; else noClients">
-    <li *ngFor="let client of clientService.clients" (click)="clientService.selectClient(client)">
+    <li *ngFor="let client of clientService.clients">
       {{client.lastName}} {{client.firstName}}
     </li>
   </ul>
@@ -19,5 +19,3 @@
     Данные о пациентах отсутствуют
   </ng-template>
 </div>
-
-<button *ngIf="!showMenu" (click)="back()">Назад</button>

@@ -8,15 +8,11 @@ import { ClientService } from '../shared/client.service';
 })
 export class ClientManagerComponent implements OnInit {
   showMenu = true;
+  displayList = false;
 
-  constructor(public clientService: ClientService) { }
+  constructor(private clientService: ClientService) { }
 
   ngOnInit(): void {
-  }
-
-  back() {
-    this.clientService.abortSession();
-    this.showMenu = true;
   }
 
   newClient() {

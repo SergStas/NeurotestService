@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 
 export class Client {
-  id?: number;
   lastName: string;
   firstName: string;
   secondName?: string;
@@ -21,11 +20,6 @@ export class ClientService {
 
   private newClientSession = false;
   private selectClientSession = false;
-
-  abortSession() {
-    this.selectClientSession = false;
-    this.newClientSession = false;
-  }
 
   isNewClientSession() {
     return this.newClientSession;
@@ -50,9 +44,8 @@ export class ClientService {
   }
 
   loadClients() {
-    this.selectClientSession = true;
-
     //TODO
+
     this.clients = [
       { firstName: 'as', lastName: 'as', address: 'as', birthDate: 'as', diseases: 'as', sex: 'as', job: 'as', phoneNumber: 'as' },
       { firstName: 'as', lastName: 'as', address: 'as', birthDate: 'as', diseases: 'as', sex: 'as', job: 'as', phoneNumber: 'as' }
