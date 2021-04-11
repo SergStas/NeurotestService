@@ -8,6 +8,7 @@ import { ClientFormComponent } from './client-form/client-form.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TestingModuleComponent } from './testing-module/testing-module.component';
 import { ClientManagerComponent } from './client-manager/client-manager.component';
+import { ConfigMasterComponent } from './config-master/config-master.component';
 
 const routes: Routes = [
   { path: 'client-manager', component: ClientManagerComponent }
@@ -18,7 +19,8 @@ const routes: Routes = [
     AppComponent,
     ClientFormComponent,
     TestingModuleComponent,
-    ClientManagerComponent
+    ClientManagerComponent,
+    ConfigMasterComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
