@@ -1,1 +1,60 @@
-<p>testing-module works!</p>
+<div class="container">
+  <div *ngIf="testingService.testSession">
+
+    <h1>Какую эмоцию выражает данное изображение?</h1>
+
+    <div class="questionBlock" *ngIf="testingService.currentQuestion; else noQuestion">
+      <img src="{{testingService.currentQuestion | question}}"
+           width="480" height="240" alt=""
+       ><br>
+
+      {{testingService.currentQuestion.emotion}} {{testingService.currentQuestion.severity}}
+    </div>
+
+    <div class="buttonsBlock">
+
+      <button
+        (click)="testingService.submitAnswer('happiness')"
+      >Счастье</button>
+
+      <button
+        (click)="testingService.submitAnswer('sadness')"
+      >Печаль</button>
+
+      <button
+        (click)="testingService.submitAnswer('astonishment')"
+      >Заинтересованность</button> <br>
+
+      <button
+        (click)="testingService.submitAnswer('disgust')"
+      >Отвращение</button>
+
+      <button
+        (click)="testingService.submitAnswer('fear')"
+      >Страх</button>
+
+      <button
+        (click)="testingService.submitAnswer('anger')"
+      >Гнев</button><br>
+
+    </div>
+
+    <button (click)="abort()">Прервать тестирование</button>
+  </div>
+
+  <button (click)="beginSession()" *ngIf="!testingService.testSession">Начать тест</button><br>
+
+  <div class="endMessage" *ngIf="testingService.showEndMessage">
+    <h1>Тест завершен, все ответы записаны</h1>
+
+    <button (click)="rerun()">Пройти еще раз</button>
+
+    <button (click)="back()">Изменить параметры теста</button>
+  </div>
+
+  <button (click)="back()" *ngIf="!testingService.showEndMessage">Назад</button>
+</div>
+
+<ng-template #noQuestion>
+  Не удалось загрузить вопрос
+</ng-template>

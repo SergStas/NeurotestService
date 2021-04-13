@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Client, ClientService} from "../shared/client.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-client-form',
@@ -22,7 +23,7 @@ export class ClientFormComponent implements OnInit {
 
   public client: Client;
 
-  constructor(private clientService: ClientService) { }
+  constructor(private clientService: ClientService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -74,6 +75,7 @@ export class ClientFormComponent implements OnInit {
     };
 
     this.clientService.submitNewClient(this.client);
+    this.router.navigate(['/config-master']);
   }
 
   private checkPhoneNumber() {

@@ -10,7 +10,7 @@
 
 <div class="clients-list" *ngIf="clientService.isSelectClientSession()">
   <ul *ngIf="clientService.clients.length; else noClients">
-    <li *ngFor="let client of clientService.clients" (click)="clientService.selectClient(client)">
+    <li *ngFor="let client of clientService.clients" (click)="clientService.selectClient(client)" routerLink="/config-master">
       {{client.lastName}} {{client.firstName}}
     </li>
   </ul>

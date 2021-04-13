@@ -9,7 +9,7 @@
     <label for="totalCount">Общее количество фото (от 90): </label>
     <input id="totalCount"
            type="number" [(ngModel)]="totalCount"
-           (change)="checkEmotionCount(); checkIntensityCount()"
+           (change)="checkEmotionCount()"
     >
 
     <div *ngIf="totalCount < 90" class="error">Неверное количество вопросов</div> <br>
@@ -45,27 +45,10 @@
            (change)="checkEmotionCount()"><br>
   </div>
 
-  <div class="intensity-distribution">
-    <p>Распределите вопросы по степени выраженности:</p>
-
-    <div *ngIf="!isIntensityCountValid" class="error">Количество вопросов не совпадает!</div> <br>
-
-    <label for="lowCount">Слабая: </label>
-    <input type="number" [(ngModel)]="lowCount" id="lowCount"
-    (change)="checkIntensityCount()"><br>
-
-    <label for="middleCount">Нормальная: </label>
-    <input type="number" [(ngModel)]="middleCount" id="middleCount"
-           (change)="checkIntensityCount()"><br>
-
-    <label for="highCount">Сильная: </label>
-    <input type="number" [(ngModel)]="highCount" id="highCount"
-           (change)="checkIntensityCount()"><br>
-
-  </div>
-
   <button (click)="submit()">Принять</button>
 
   <div *ngIf="errorMessage" class="error">{{errorMessage}}</div>
+
+  <button (click)="back()">Назад</button>
 
 </div>
