@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class ConfigMasterComponent implements OnInit {
   totalCount = 90;
-  duration = 3;
+  duration = 5;
 
   happinessCount = 15;
   sadnessCount = 15;
@@ -36,6 +36,7 @@ export class ConfigMasterComponent implements OnInit {
   submit() {
     if (!this.validate())
       return;
+
     this.testConfigService.setTestParams({
       questionDuration: this.duration,
       totalCount : this.totalCount,

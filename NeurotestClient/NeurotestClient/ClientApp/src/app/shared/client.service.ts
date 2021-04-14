@@ -1,4 +1,5 @@
 import {Injectable} from "@angular/core";
+import {NetworkService} from "./network.service";
 
 export class Client {
   id?: number;
@@ -18,9 +19,16 @@ export class ClientService {
   public clients: Client[] = [];
 
   private sessionClient: Client
+  get client() {
+    return this.sessionClient;
+  }
 
   private newClientSession = false;
   private selectClientSession = false;
+
+  public constructor(
+    private networkService: NetworkService
+  ) {  }
 
   abortSession() {
     this.selectClientSession = false;
@@ -47,15 +55,13 @@ export class ClientService {
   submitNewClient(client: Client) {
     this.sessionClient = client;
     this.newClientSession = false;
+
+    this.networkService.addClient(client);
   }
 
   loadClients() {
     this.selectClientSession = true;
 
-    //TODO
-    this.clients = [
-      { firstName: 'as', lastName: 'as', address: 'as', birthDate: 'as', diseases: 'as', sex: 'as', job: 'as', phoneNumber: 'as' },
-      { firstName: 'as', lastName: 'as', address: 'as', birthDate: 'as', diseases: 'as', sex: 'as', job: 'as', phoneNumber: 'as' }
-    ];
+    this.clients = this.networkService.getClients();
   }
 }

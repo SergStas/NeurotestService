@@ -10,6 +10,7 @@ import { TestingModuleComponent } from './testing-module/testing-module.componen
 import { ClientManagerComponent } from './client-manager/client-manager.component';
 import { ConfigMasterComponent } from './config-master/config-master.component';
 import {QuestionPipe} from "./shared/question.pipe";
+import {EmotionPipe} from "./shared/emotion.pipe";
 
 const routes: Routes = [
   { path: 'client-manager', component: ClientManagerComponent },
@@ -18,14 +19,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ClientFormComponent,
-    TestingModuleComponent,
-    ClientManagerComponent,
-    ConfigMasterComponent,
-    QuestionPipe
-  ],
+    declarations: [
+        AppComponent,
+        ClientFormComponent,
+        TestingModuleComponent,
+        ClientManagerComponent,
+        ConfigMasterComponent,
+        QuestionPipe,
+        EmotionPipe
+    ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,

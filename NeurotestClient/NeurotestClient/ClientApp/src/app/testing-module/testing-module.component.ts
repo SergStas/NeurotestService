@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {TestConfig, TestConfigService} from "../shared/test-config.service";
-import {NetworkService, Question} from "../shared/network.service";
 import {Router} from "@angular/router";
 import {TestingService} from "../shared/testing.service";
 
