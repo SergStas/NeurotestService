@@ -8,18 +8,26 @@ import { ClientFormComponent } from './client-form/client-form.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TestingModuleComponent } from './testing-module/testing-module.component';
 import { ClientManagerComponent } from './client-manager/client-manager.component';
+import { ConfigMasterComponent } from './config-master/config-master.component';
+import {QuestionPipe} from "./shared/question.pipe";
+import {EmotionPipe} from "./shared/emotion.pipe";
 
 const routes: Routes = [
-  { path: 'client-manager', component: ClientManagerComponent }
+  { path: 'client-manager', component: ClientManagerComponent },
+  { path: 'config-master', component: ConfigMasterComponent },
+  { path: 'test-module', component: TestingModuleComponent }
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ClientFormComponent,
-    TestingModuleComponent,
-    ClientManagerComponent
-  ],
+    declarations: [
+        AppComponent,
+        ClientFormComponent,
+        TestingModuleComponent,
+        ClientManagerComponent,
+        ConfigMasterComponent,
+        QuestionPipe,
+        EmotionPipe
+    ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,

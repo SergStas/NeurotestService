@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientService } from '../shared/client.service';
 
 @Component({
   selector: 'app-client-manager',
@@ -7,20 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientManagerComponent implements OnInit {
   showMenu = true;
-  showClientForm = false;
-  displayList = false;
 
-  constructor() { }
+  constructor(public clientService: ClientService) { }
 
   ngOnInit(): void {
   }
 
+  back() {
+    this.clientService.abortSession();
+    this.showMenu = true;
+  }
+
   newClient() {
     this.showMenu = false;
-    this.showClientForm = true;
+    this.clientService.beginClientInit();
   }
 
   showClients() {
-
+    this.clientService.loadClients();
+    this.showMenu = false;
   }
 }

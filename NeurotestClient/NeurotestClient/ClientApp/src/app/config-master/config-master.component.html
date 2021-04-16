@@ -1,0 +1,54 @@
+<div class="container">
+
+  <div class="general">
+    <label for="duration">Время на ответ (от 3 до 7): </label>
+    <input type="number" [(ngModel)]="duration" id="duration"><br>
+
+    <div *ngIf="duration < 3 || duration > 7" class="error">Неверное значение времени</div> <br>
+
+    <label for="totalCount">Общее количество фото (от 90): </label>
+    <input id="totalCount"
+           type="number" [(ngModel)]="totalCount"
+           (change)="checkEmotionCount()"
+    >
+
+    <div *ngIf="totalCount < 90" class="error">Неверное количество вопросов</div> <br>
+  </div>
+
+  <div class="emotion-distribution">
+    <p>Распределите вопросы по типу эмоции:</p>
+
+    <div *ngIf="!isEmotionCountValid" class="error">Количество вопросов не совпадает!</div> <br>
+
+    <label for="happinessCount">Радость: </label>
+    <input type="number" [(ngModel)]="happinessCount" id="happinessCount"
+           (change)="checkEmotionCount()"><br>
+
+    <label for="sadnessCount">Печаль: </label>
+    <input type="number" [(ngModel)]="sadnessCount" id="sadnessCount"
+           (change)="checkEmotionCount()"><br>
+
+    <label for="excitedCount">Интерес: </label>
+    <input type="number" [(ngModel)]="excitedCount" id="excitedCount"
+           (change)="checkEmotionCount()"><br>
+
+    <label for="fearCount">Страх: </label>
+    <input type="number" [(ngModel)]="fearCount" id="fearCount"
+           (change)="checkEmotionCount()"><br>
+
+    <label for="disgustingCount">Отвращение: </label>
+    <input type="number" [(ngModel)]="disgustingCount" id="disgustingCount"
+           (change)="checkEmotionCount()"><br>
+
+    <label for="angerCount">Гнев: </label>
+    <input type="number" [(ngModel)]="angerCount" id="angerCount"
+           (change)="checkEmotionCount()"><br>
+  </div>
+
+  <button (click)="submit()">Принять</button>
+
+  <div *ngIf="errorMessage" class="error">{{errorMessage}}</div>
+
+  <button (click)="back()">Назад</button>
+
+</div>
