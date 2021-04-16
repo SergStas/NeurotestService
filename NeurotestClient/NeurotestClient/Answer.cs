@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Text;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace NeurotestServer
@@ -12,6 +13,21 @@ namespace NeurotestServer
             Question = question;
             UserInput = userInput;
             ElapsedTime = elapsedTime;
+        }
+        public string ToCSVString()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append(Question.Path);
+            builder.Append(";");
+            builder.Append(Question.Type);
+            builder.Append(";");
+            builder.Append(UserInput);
+            builder.Append(";");
+            builder.Append(ElapsedTime);
+            builder.Append("\n");
+
+            return builder.ToString();
         }
         public EmotionType GetRight() => Question.Type;
         public EmotionSeverity GetSeverity() => Question.Severity;

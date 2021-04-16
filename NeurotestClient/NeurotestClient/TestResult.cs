@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,6 +33,69 @@ namespace NeurotestServer
                 string.Format(assertionMessage, "'UnansweredQuestionPercentage'", 0, 100));
             Debug.Assert(SimilarEmotionsCount <= 90,
                 string.Format(assertionMessage, "'SimilarEmotionsCount'", 0, 90));
+        }
+        public string ToCSVString()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append(SubjectID);
+            builder.Append(";");
+
+            foreach (EmotionType type in AccuracyInPieces.Keys)
+            {
+                builder.Append(AccuracyInPieces[type]);
+                builder.Append(";");
+            }
+
+            foreach (EmotionType type in AccuracyInPercents.Keys)
+            {
+                builder.Append(AccuracyInPercents[type]);
+                builder.Append(";");
+            }
+
+            builder.Append(UnanswerdQuestionCount);
+            builder.Append(";");
+            builder.Append(UnansweredQuestionPercentage);
+            builder.Append(";");
+            builder.Append(SimilarEmotionsCount);
+            builder.Append(";");
+
+            foreach (EmotionType type in Durations.Keys)
+            {
+                builder.Append(Durations[type]);
+                builder.Append(";");
+            }
+
+            foreach (EmotionType type in MinReactionSpeeds.Keys)
+            {
+                builder.Append(MinReactionSpeeds[type]);
+                builder.Append(";");
+            }
+
+            foreach (EmotionType type in MeanReactionSpeeds.Keys)
+            {
+                builder.Append(MeanReactionSpeeds[type]);
+                builder.Append(";");
+            }
+
+            foreach (EmotionType type in MaxReactionSpeeds.Keys)
+            {
+                builder.Append(MaxReactionSpeeds[type]);
+                builder.Append(";");
+            }
+
+            foreach (EmotionType type in MeanSpeedsBySubcategory.Keys)
+            {
+                foreach (EmotionSeverity severity in MeanSpeedsBySubcategory[type].Keys)
+                {
+                    builder.Append(MeanSpeedsBySubcategory[type][severity]);
+                    builder.Append(";");
+                }
+            }
+
+            builder.Append("\n");
+
+            return builder.ToString();
         }
         public ulong SubjectID { get; }  // ID of the test subject who gave this result
         public List<Answer> Answers { get; }  // List of subject's answers
