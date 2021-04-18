@@ -1,0 +1,39 @@
+2021-04-18 15:22:56.815 +05:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.202\
+2021-04-18 15:22:57.319 +05:00 [INF] Registered 1 extensions:
+	Default extension
+2021-04-18 15:23:21.313 +05:00 [INF] Initializing upgrade step Select an entrypoint
+2021-04-18 15:23:21.321 +05:00 [INF] Setting entrypoint to only project in solution: D:\git\NeurotestService\NeurotestClient\NeurotestClient\NeurotestClient.csproj
+2021-04-18 15:23:22.075 +05:00 [INF] Initializing upgrade step Select project to upgrade
+2021-04-18 15:23:22.124 +05:00 [INF] Initializing upgrade step Back up project
+2021-04-18 15:23:44.510 +05:00 [INF] Skipping upgrade step Back up project
+2021-04-18 15:23:44.513 +05:00 [INF] Upgrade step Back up project skipped
+2021-04-18 15:23:53.273 +05:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-04-18 15:23:53.277 +05:00 [INF] Initializing upgrade step Clean up NuGet package references
+2021-04-18 15:23:58.194 +05:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.220602) needs added
+2021-04-18 15:23:59.147 +05:00 [INF] Reference to Newtonsoft package (Microsoft.AspNetCore.Mvc.NewtonsoftJson, version 5.0.5) needs added
+2021-04-18 15:23:59.155 +05:00 [INF] Packages to be addded:
+Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.220602
+Microsoft.AspNetCore.Mvc.NewtonsoftJson, Version=5.0.5
+2021-04-18 15:24:10.248 +05:00 [INF] Applying upgrade step Clean up NuGet package references
+2021-04-18 15:24:10.260 +05:00 [INF] Adding package reference: Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.220602
+2021-04-18 15:24:10.265 +05:00 [INF] Adding package reference: Microsoft.AspNetCore.Mvc.NewtonsoftJson, Version=5.0.5
+2021-04-18 15:24:20.418 +05:00 [WRN] No version of Microsoft.AspNetCore.Mvc.NewtonsoftJson found that supports ["netcoreapp3.1"]; leaving unchanged
+2021-04-18 15:24:20.469 +05:00 [INF] Upgrade step Clean up NuGet package references applied successfully
+2021-04-18 15:24:27.021 +05:00 [INF] Initializing upgrade step Update TFM
+2021-04-18 15:24:27.027 +05:00 [INF] TFM needs updated to net5.0
+2021-04-18 15:24:35.481 +05:00 [INF] Applying upgrade step Update TFM
+2021-04-18 15:24:57.373 +05:00 [INF] Updated TFM to net5.0
+2021-04-18 15:24:57.376 +05:00 [INF] Upgrade step Update TFM applied successfully
+2021-04-18 15:24:59.112 +05:00 [INF] Initializing upgrade step Update NuGet Packages
+2021-04-18 15:25:02.240 +05:00 [INF] No package updates needed
+2021-04-18 15:25:02.242 +05:00 [INF] Initializing upgrade step Add template files
+2021-04-18 15:25:02.370 +05:00 [INF] 0 expected template items needed
+2021-04-18 15:25:02.374 +05:00 [INF] Initializing upgrade step Update C# source
+2021-04-18 15:25:05.042 +05:00 [INF] Initializing upgrade step Move to next project
+2021-04-18 15:25:38.141 +05:00 [INF] Applying upgrade step Move to next project
+2021-04-18 15:25:38.145 +05:00 [INF] Upgrade step Move to next project applied successfully
+2021-04-18 15:25:46.896 +05:00 [INF] Initializing upgrade step Finalize upgrade
+2021-04-18 15:25:52.100 +05:00 [INF] Applying upgrade step Finalize upgrade
+2021-04-18 15:25:52.103 +05:00 [INF] Upgrade step Finalize upgrade applied successfully
+2021-04-18 15:26:10.296 +05:00 [INF] Upgrade has completed. Please review any changes.
+2021-04-18 15:26:10.299 +05:00 [INF] Saving upgrade progress file at D:\git\NeurotestService\NeurotestClient\.upgrade-assistant
