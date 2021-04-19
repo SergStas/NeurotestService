@@ -19,7 +19,7 @@ export class TestingService {
     return this.answers;
   }
   get correctCount() {
-    return this.answers.filter(a => a.userInput && a.question.emotion == a.userInput).length;
+    return this.answers.filter(a => a.UserInput && a.Question.Type == a.UserInput).length;
   }
   get accuracy() {
     return this.correctCount / this.questionsCount;
@@ -63,14 +63,18 @@ export class TestingService {
 
   setup() {
     this.duration = this.configService.getTestParams().questionDuration;
-    this.questions = this.networkService.getQuestions(this.configService.getTestParams());
     this.answers = [];
     this.index = 0;
-
     this.end = false;
     this.results = false;
 
-    this.setQuestion();
+    this.networkService.getQuestions(this.configService.getTestParams())
+      .subscribe(
+        (questionsData: Question[]) => {
+          this.questions = questionsData;
+          this.setQuestion();
+        }
+      );
   }
 
   startTest() {
@@ -83,9 +87,9 @@ export class TestingService {
 
   submitAnswer(answer: string) {
     this.answers.push({
-      question: this.currentQuestion,
-      userInput: answer,
-      elapsedTime: this.timer
+      Question: this.currentQuestion,
+      UserInput: answer,
+      ElapsedTime: this.timer
     });
 
     this.nextQuestion();
@@ -105,7 +109,10 @@ export class TestingService {
     this.test = false;
     this.end = true;
 
-    this.networkService.saveResult(this.answers, this.clientService.client);
+    this.networkService.saveResult({
+      SubjectId: this.clientService.client.Id,
+      Answers: this.answers
+    });
   }
 
   private setQuestion() {
@@ -119,8 +126,8 @@ export class TestingService {
       this.timer = d / 100;
       if (Math.abs(this.timer - this.duration) < 1e-5) {
         this.answers.push({
-          question: this.currentQuestion,
-          elapsedTime: this.duration
+          Question: this.currentQuestion,
+          ElapsedTime: -1
         });
         this.sub.unsubscribe();
         this.nextQuestion();

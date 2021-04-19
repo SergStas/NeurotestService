@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Client, ClientService} from "../shared/client.service";
+import {SubjectInfo, ClientService} from "../shared/client.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -21,7 +21,7 @@ export class ClientFormComponent implements OnInit {
   public diseases = '';
   public phoneNumber = '';
 
-  public client: Client;
+  public client: SubjectInfo;
 
   constructor(private clientService: ClientService, private router: Router) { }
 
@@ -63,15 +63,15 @@ export class ClientFormComponent implements OnInit {
 
   private submitClient() {
     this.client = {
-      lastName: this.lastName,
-      firstName: this.firstName,
-      secondName: this.secondName ? this.secondName : null,
-      sex: this.sex,
-      birthDate: this.birthDate,
-      address: this.address,
-      job: this.job,
-      diseases: this.diseases,
-      phoneNumber: this.phoneNumber
+      LastName: this.lastName,
+      FirstName: this.firstName,
+      SecondName: this.secondName ? this.secondName : null,
+      Sex: this.sex,
+      BirthDate: this.birthDate,
+      Address: this.address,
+      Job: this.job,
+      Diseases: this.diseases,
+      Phone: this.phoneNumber
     };
 
     this.clientService.submitNewClient(this.client);

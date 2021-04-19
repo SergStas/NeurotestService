@@ -7,6 +7,6 @@ import {Question} from "./network.service";
 })
 export class QuestionPipe implements PipeTransform {
   transform(question: Question) {
-    return question.url;
+    return question.Path;
   }
 }

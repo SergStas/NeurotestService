@@ -1,24 +1,25 @@
 import {Injectable} from "@angular/core";
 import {NetworkService} from "./network.service";
 
-export class Client {
-  id?: number;
-  lastName: string;
-  firstName: string;
-  secondName?: string;
-  sex: string;
-  birthDate: string;
-  address: string;
-  job: string;
-  diseases: string;
-  phoneNumber: string;
+export class SubjectInfo {
+  Id?: number;
+  LastName: string;
+  FirstName: string;
+  SecondName?: string;
+  Sex: string;
+  BirthDate: string;
+  Address: string;
+  Job: string;
+  Diseases: string;
+  Phone: string;
 }
 
 @Injectable({providedIn: "root"})
 export class ClientService {
-  public clients: Client[] = [];
+  public clients: SubjectInfo[];
 
-  private sessionClient: Client
+  private sessionClient: SubjectInfo
+
   get client() {
     return this.sessionClient;
   }
@@ -47,21 +48,23 @@ export class ClientService {
     this.newClientSession = true;
   }
 
-  selectClient(client: Client) {
+  selectClient(client: SubjectInfo) {
     this.sessionClient = client;
     this.selectClientSession = false;
   }
 
-  submitNewClient(client: Client) {
+  submitNewClient(client: SubjectInfo) {
     this.sessionClient = client;
     this.newClientSession = false;
 
-    this.networkService.addClient(client);
+    this.networkService.addClient(client)
+      .subscribe((id: number) => this.sessionClient.Id = id);
   }
 
   loadClients() {
     this.selectClientSession = true;
-
-    this.clients = this.networkService.getClients();
+    this.networkService.getClients().subscribe(
+      (subjects: SubjectInfo[]) => this.clients = subjects
+    );
   }
 }

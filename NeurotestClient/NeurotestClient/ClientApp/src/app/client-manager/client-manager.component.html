@@ -9,14 +9,19 @@
 <app-client-form *ngIf="clientService.isNewClientSession()"></app-client-form>
 
 <div class="clients-list" *ngIf="clientService.isSelectClientSession()">
-  <ul *ngIf="clientService.clients.length; else noClients">
+  <ul *ngIf="clientService.clients && clientService.clients.length; else noClients">
     <li *ngFor="let client of clientService.clients" (click)="clientService.selectClient(client)" routerLink="/config-master">
       {{client.lastName}} {{client.firstName}}
     </li>
   </ul>
 
   <ng-template #noClients>
-    Данные о пациентах отсутствуют
+    <div *ngIf="clientService.clients && !clientService.clients.length">
+      Данные о пациентах отсутствуют
+    </div>
+    <div *ngIf="!clientService.clients">
+      Загрузка данных о пациентах...
+    </div>
   </ng-template>
 </div>
 
