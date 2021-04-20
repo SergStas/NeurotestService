@@ -30,8 +30,11 @@ namespace NeurotestServer
             string statisticsFilePath = Path.Combine(m_ResultsDir, c_StatisticsFile);
             File.AppendAllText(statisticsFilePath, result.ToCSVString());
         }
-        /* Creates TestSubject instance and stors in in the csv format */
-        public static void CreateNewSubject(SubjectInfo info)
+        /* 
+         * Creates TestSubject instance and stors it in the csv format.
+         * Returns an ID of created subject.
+         * */
+        public static ulong CreateNewSubject(SubjectInfo info)
         {
             TestSubject subject = new TestSubject(m_NextSubjectID, info);
             UpdateNextSubjectID();
@@ -39,21 +42,34 @@ namespace NeurotestServer
             string filename = Convert.ToString(subject.ID) + ".csv";
             string path = Path.Combine(m_TestSubjectsDir, filename);
             File.WriteAllText(path, subject.ToCSVString());
+
+            return subject.ID;
         }
-        /* Returns a list of IDs for all subjects in the database */
-        public static List<string> GetSubjectsIDs()
+        /* Returns a list of all subject files in the database */
+        public static List<string> GetSubjectsFiles()
         {
-            List<string> ids = new List<string>(Convert.ToInt32(m_NextSubjectID - 1));
+            List<string> files = new List<string>(Convert.ToInt32(m_NextSubjectID - 1));
 
             foreach (string subjectFilename in Directory.GetFiles(m_TestSubjectsDir))
             {
                 if (Path.GetExtension(subjectFilename) == ".id") continue;
-
-                string id = Path.GetFileNameWithoutExtension(subjectFilename);
-                ids.Add(id);
+                files.Add(subjectFilename);
             }
 
-            return ids;
+            return files;
+        }
+        /* Read subjects data from given files */
+        public static List<SubjectInfo> GetSubjectsInfosFromFiles(List<string> filenames)
+        {
+            List<SubjectInfo> subjects = new List<SubjectInfo>(filenames.Count);
+
+            foreach (string filename in filenames)
+            {
+                string subjectPath = Path.Combine(c_TestsSubjectsDataBase, filename);
+                subjects.Add(SubjectInfo.FromCSV(subjectPath));
+            }
+
+            return subjects;
         }
         private static void UpdateNextSubjectID()
         {

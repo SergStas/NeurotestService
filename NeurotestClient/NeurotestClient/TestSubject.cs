@@ -27,7 +27,7 @@ namespace NeurotestServer
             builder.Append(";");
             builder.Append(Info.Job);
             builder.Append(";");
-            builder.Append(string.Join(", ", Info.Diseses));
+            builder.Append(string.Join(", ", Info.Diseases));
             builder.Append(";");
             builder.Append(Info.Phone);
 

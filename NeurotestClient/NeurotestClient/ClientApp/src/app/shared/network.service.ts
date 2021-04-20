@@ -28,15 +28,15 @@ export class NetworkService {
   ) { }
 
   getClients() {
-    return this.httpClient.get('api/data');
+    return this.httpClient.get('api/subject');
   }
 
   addClient(client: SubjectInfo) {
-    return this.httpClient.post('api/data', client);
+    return this.httpClient.post('api/subject', client);
   }
 
   saveResult(result: ResultInfo) {
-    return this.httpClient.post('api/data', result);
+    return this.httpClient.post('api/result', result);
   }
 
   getQuestions(params: TestConfig) {
