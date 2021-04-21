@@ -65,7 +65,7 @@ export class ClientFormComponent implements OnInit {
     this.client = {
       LastName: this.lastName,
       FirstName: this.firstName,
-      SecondName: this.secondName ? this.secondName : null,
+      Patronymic: this.secondName ? this.secondName : null,
       Sex: this.sex,
       BirthDate: this.birthDate,
       Address: this.address,

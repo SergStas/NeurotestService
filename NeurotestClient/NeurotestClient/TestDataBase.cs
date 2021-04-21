@@ -59,14 +59,15 @@ namespace NeurotestServer
             return files;
         }
         /* Read subjects data from given files */
-        public static List<SubjectInfo> GetSubjectsInfosFromFiles(List<string> filenames)
+        public static List<JSONWrappers.SubjectInfo> GetSubjectsInfosFromFiles(List<string> filenames)
         {
-            List<SubjectInfo> subjects = new List<SubjectInfo>(filenames.Count);
+            List<JSONWrappers.SubjectInfo> subjects = new List<JSONWrappers.SubjectInfo>(filenames.Count);
 
             foreach (string filename in filenames)
             {
                 string subjectPath = Path.Combine(c_TestsSubjectsDataBase, filename);
-                subjects.Add(SubjectInfo.FromCSV(subjectPath));
+                SubjectInfo info = SubjectInfo.FromCSV(subjectPath);
+                subjects.Add(info.ToJSON());
             }
 
             return subjects;

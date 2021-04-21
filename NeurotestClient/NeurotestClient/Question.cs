@@ -19,9 +19,20 @@ namespace NeurotestServer
             Type = CulcEmotionType(path);
             Severity = CulcEmotionSeverity(path);
         }
-        public Answer Ask()
+        public static Question FromJSON(JSONWrappers.Question jsonQuestion)
         {
-            throw new NotImplementedException();
+            return new Question(jsonQuestion.Path);
+        }
+        public JSONWrappers.Question ToJSON()
+        {
+            JSONWrappers.Question jsonQuestion = new JSONWrappers.Question
+            {
+                Path = Path,
+                Type = Type.ToString("G"),
+                Severity = Severity.ToString("G")
+            };
+
+            return jsonQuestion;
         }
         public readonly string Path { get; }  // Absolute path to the picture
         public readonly EmotionType Type { get; }  // Type of the emotion in this picture

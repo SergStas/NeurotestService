@@ -10,15 +10,21 @@ namespace NeurotestServer.Controllers
     public class TestResultsController : Controller
     {
         [HttpPost]
-        public IActionResult PostResult(ResultInfo resultInfo)
+        public IActionResult PostResult(JSONWrappers.TestResult jsonResult)
         {
             if (ModelState.IsValid)
             {
-                /* Fetching parameters from wrapper struct */
-                ulong subjectID = resultInfo.SubjectID;
-                IEnumerable<Answer> answers = resultInfo.Answers;
+                /* Fetching parameters from wrapper class */
+                ulong subjectID = Convert.ToUInt64(jsonResult.SubjectID);
+                IEnumerable<JSONWrappers.Answer> jsonAnswers = jsonResult.Answers;
 
-                TestResult result = new TestResult(subjectID, answers.ToList());
+                List<Answer> answers = new List<Answer>(jsonAnswers.Count());
+                foreach (JSONWrappers.Answer jsonAnswer in jsonAnswers)
+                {
+                    answers.Add(Answer.FromJSON(jsonAnswer));
+                }
+
+                TestResult result = new TestResult(subjectID, answers);
                 TestDataBase.SubmitTestResult(result);
 
                 return Ok(subjectID);

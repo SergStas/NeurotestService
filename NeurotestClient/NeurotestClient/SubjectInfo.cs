@@ -6,20 +6,39 @@ namespace NeurotestServer
 {
     public class SubjectInfo
     {
-        public SubjectInfo(string name, Sex sex, DateTime birthDate, string address, string job,
-            string diseases, string phone)
+        public static SubjectInfo FromJSON(JSONWrappers.SubjectInfo jsonInfo)
         {
-            (string lastName, string firstName, string patronymic) = SplitName(name);
+            string firstName = jsonInfo.FirstName;
+            string lastName = jsonInfo.LastName;
+            string patronymic = jsonInfo.Patronymic;
+            string name = string.Join(" ", new { firstName, lastName, patronymic});
 
-            FirstName = firstName;
-            LastName = lastName;
-            Patronymic = patronymic;
-            Sex = sex;
-            BirthDate = birthDate;
-            Address = address;
-            Job = job;
-            Diseases = diseases;
-            Phone = phone;
+            string address = jsonInfo.Address;
+            string job = jsonInfo.Job;
+            string diseases = jsonInfo.Diseases;
+            string phone = jsonInfo.Phone;
+
+            Sex sex = Utils.SexStringToEnum(jsonInfo.Sex);
+            DateTime birthDate = Convert.ToDateTime(jsonInfo.BirthDate);
+
+            return new SubjectInfo(name, sex, birthDate, address, job, diseases, phone);
+        }
+        public JSONWrappers.SubjectInfo ToJSON()
+        {
+            JSONWrappers.SubjectInfo jsonInfo = new JSONWrappers.SubjectInfo
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                Patronymic = Patronymic,
+                Address = Address,
+                Job = Job,
+                Diseases = Diseases,
+                Phone = Phone,
+                Sex = Sex.ToString("G"),
+                BirthDate = Convert.ToString(BirthDate)
+            };
+
+            return jsonInfo;
         }
         public static SubjectInfo FromCSV(string path)
         {
@@ -34,7 +53,7 @@ namespace NeurotestServer
             string[] subjectFiledsStrings = subjectDataString.Split(';');
 
             string name = subjectFiledsStrings[0];
-            Sex sex = (subjectFiledsStrings[1] == "Male") ? Sex.Male : Sex.Female;
+            Sex sex = Utils.SexStringToEnum(subjectFiledsStrings[1]);
             DateTime birthDate = Convert.ToDateTime(subjectFiledsStrings[2]);
             string address = subjectFiledsStrings[3];
             string job = subjectFiledsStrings[4];
@@ -52,6 +71,21 @@ namespace NeurotestServer
         public string Job { get; }
         public string Diseases { get; }
         public string Phone { get; }  // The phone number of the test subject in the format ***********
+        protected SubjectInfo(string name, Sex sex, DateTime birthDate, string address, string job,
+            string diseases, string phone)
+        {
+            (string lastName, string firstName, string patronymic) = SplitName(name);
+
+            FirstName = firstName;
+            LastName = lastName;
+            Patronymic = patronymic;
+            Sex = sex;
+            BirthDate = birthDate;
+            Address = address;
+            Job = job;
+            Diseases = diseases;
+            Phone = phone;
+        }
         /*
          * This method splits whole name into last, first name and patronymic
          */

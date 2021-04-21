@@ -5,7 +5,7 @@ export class SubjectInfo {
   Id?: number;
   LastName: string;
   FirstName: string;
-  SecondName?: string;
+  Patronymic?: string;
   Sex: string;
   BirthDate: string;
   Address: string;

@@ -8,17 +8,18 @@ namespace NeurotestServer.Controllers
     public class TestSubjectsController : Controller
     {
         [HttpGet]
-        public IEnumerable<SubjectInfo> GetSubjectsInfos()
+        public IEnumerable<JSONWrappers.SubjectInfo> GetSubjectsInfos()
         {
             List<string> subjectsFiles = TestDataBase.GetSubjectsFiles();
-            List<SubjectInfo> subjects = TestDataBase.GetSubjectsInfosFromFiles(subjectsFiles);
+            List<JSONWrappers.SubjectInfo> subjects = TestDataBase.GetSubjectsInfosFromFiles(subjectsFiles);
             return subjects;
         }
         [HttpPost]
-        public IActionResult PostSubject(SubjectInfo info)
+        public IActionResult PostSubject(JSONWrappers.SubjectInfo jsonInfo)
         {
             if (ModelState.IsValid)
             {
+                SubjectInfo info = SubjectInfo.FromJSON(jsonInfo);
                 ulong subjectID = TestDataBase.CreateNewSubject(info);
                 return Ok(subjectID);
             }

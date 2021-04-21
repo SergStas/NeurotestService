@@ -8,8 +8,9 @@ namespace NeurotestServer.Controllers
     public class TestGeneratorController : Controller
     {
         [HttpGet]
-        public IEnumerable<Question> GetTest(TestConfig config)
+        public IEnumerable<JSONWrappers.Question> GetTest(JSONWrappers.TestConfig jsonConfig)
         {
+            TestConfig config = TestConfig.FromJSON(jsonConfig);
             return TestGenerator.CreateTest(config);
         }
     }

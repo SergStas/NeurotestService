@@ -9,14 +9,15 @@ namespace NeurotestServer
      */
     public static class TestGenerator
     {
-        public static List<Question> CreateTest(TestConfig config)
+        public static List<JSONWrappers.Question> CreateTest(TestConfig config)
         {
-            List<Question> questions = new List<Question>(config.TotalCount);
+            List<JSONWrappers.Question> questions = new List<JSONWrappers.Question>(config.TotalCount);
 
             foreach (string path in PicturesDataBase.SamplePictures(config))
             {
                 Debug.Assert(File.Exists(path), $"Got invalid picture path: {path}.");
-                questions.Add(new Question(path));
+                Question question = new Question(path);
+                questions.Add(question.ToJSON());
             }
 
             return questions;

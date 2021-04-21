@@ -1,18 +1,19 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace NeurotestServer
 {
-    public struct Answer
+    public class Answer
     {
-        public Answer(Question question, EmotionType userInput, float elapsedTime)
+        public static Answer FromJSON(JSONWrappers.Answer jsonAnswer)
         {
-            Debug.Assert((elapsedTime >= -1.0f) && (elapsedTime <= 10.0f), "Time value must be in range -1-10");
+            Question question = Question.FromJSON(jsonAnswer.Question);
+            EmotionType userInput = Utils.EmotionTypeStringToEnum(jsonAnswer.UserInput);
+            float elapsedTime = Convert.ToSingle(jsonAnswer.ElapsedTime);
 
-            Question = question;
-            UserInput = userInput;
-            ElapsedTime = elapsedTime;
+            return new Answer(question, userInput, elapsedTime);
         }
         public string ToCSVString()
         {
@@ -34,8 +35,16 @@ namespace NeurotestServer
         public bool IsRight() => Question.Type == UserInput;
         public bool IsSimilar() => Question.Type == s_SimilarEmotions[UserInput];
         public Question Question { get; }  // The original question
-        public readonly EmotionType UserInput { get; }  // The answer given by a user
-        public readonly float ElapsedTime { get; }  // Time taken by the user to answer in seconds. -1 means "No answer"
+        public EmotionType UserInput { get; }  // The answer given by a user
+        public float ElapsedTime { get; }  // Time taken by the user to answer in seconds. -1 means "No answer"
+        protected Answer(Question question, EmotionType userInput, float elapsedTime)
+        {
+            Debug.Assert((elapsedTime >= -1.0f) && (elapsedTime <= 10.0f), "Time value must be in range -1-10");
+
+            Question = question;
+            UserInput = userInput;
+            ElapsedTime = elapsedTime;
+        }
 
         private static readonly Dictionary<EmotionType, EmotionType> s_SimilarEmotions = new Dictionary<EmotionType, EmotionType>()
         {
