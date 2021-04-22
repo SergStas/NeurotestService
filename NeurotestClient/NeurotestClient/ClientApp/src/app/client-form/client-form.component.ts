@@ -14,7 +14,7 @@ export class ClientFormComponent implements OnInit {
   public firstName = '';
   public secondName = '';
 
-  public sex = '';
+  public sex = 'Male';
   public birthDate: string;
   public address = '';
   public job = '';
@@ -42,6 +42,8 @@ export class ClientFormComponent implements OnInit {
       this.errorMessage = 'Пожалуйста, укажите фамилию'
     else if (!this.firstName.trim())
       this.errorMessage = 'Пожалуйста, укажите имя'
+    else if (!this.secondName.trim())
+      this.errorMessage = 'Пожалуйста, укажите отчество'
     else if (!this.birthDate)
       this.errorMessage = 'Пожалуйста, укажите дату рождения'
     else if (!this.address)
@@ -65,7 +67,7 @@ export class ClientFormComponent implements OnInit {
     this.client = {
       LastName: this.lastName,
       FirstName: this.firstName,
-      Patronymic: this.secondName ? this.secondName : null,
+      Patronymic: this.secondName,
       Sex: this.sex,
       BirthDate: this.birthDate,
       Address: this.address,

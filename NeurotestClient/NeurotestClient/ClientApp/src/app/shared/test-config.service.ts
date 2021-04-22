@@ -1,15 +1,13 @@
 import {Injectable} from "@angular/core";
 
 export class TestConfig {
-  questionDuration: number;
-  totalCount: number;
-
-  happinessCount: number;
-  sadnessCount: number;
-  excitedCount: number;
-  fearCount: number;
-  disgustingCount: number;
-  angerCount: number;
+  QuestionDuration: string;
+  AngerCount: string;
+  AstonishmentCount: string;
+  DisgustCount: string;
+  FearCount: string;
+  HappinessCount: string;
+  SadnessCount: string;
 }
 
 @Injectable({providedIn: 'root'})

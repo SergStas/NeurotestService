@@ -62,7 +62,7 @@ export class TestingService {
   ) {}
 
   setup() {
-    this.duration = this.configService.getTestParams().questionDuration;
+    this.duration = Number.parseFloat(this.configService.getTestParams().QuestionDuration);
     this.answers = [];
     this.index = 0;
     this.end = false;
@@ -110,7 +110,7 @@ export class TestingService {
     this.end = true;
 
     this.networkService.saveResult({
-      SubjectId: this.clientService.client.Id,
+      SubjectId: this.clientService.clientId.toString(),
       Answers: this.answers
     });
   }
@@ -127,7 +127,8 @@ export class TestingService {
       if (Math.abs(this.timer - this.duration) < 1e-5) {
         this.answers.push({
           Question: this.currentQuestion,
-          ElapsedTime: -1
+          ElapsedTime: '-1',
+          UserInput: 'Undefined'
         });
         this.sub.unsubscribe();
         this.nextQuestion();

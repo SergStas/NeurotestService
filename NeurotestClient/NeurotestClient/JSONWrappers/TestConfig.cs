@@ -12,6 +12,5 @@
         public string FearCount { get; set; }
         public string HappinessCount { get; set; }
         public string SadnessCount { get; set; }
-        public string TotalCount { get; set; }
     }
 }

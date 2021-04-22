@@ -29,7 +29,7 @@ namespace NeurotestServer
         
         public const short c_SeveritiesCount = 3;  // The number of severities of each emotion type
         protected TestConfig(short questionDuration, short angerCount, short astonishmentCount,
-            short disgustCount, short fearCount, short happinessCount, short sadnessCount)
+            short disgustCount, short fearCount, short happinessCount, short sadnessCount) //FIXME
         {
             string assertionMessage = "{} must be in range {}-{}.";
             Debug.Assert((questionDuration >= 3) && (questionDuration <= 10),

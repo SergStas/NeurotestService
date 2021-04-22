@@ -72,7 +72,7 @@ namespace NeurotestServer
         /*
          * This method gets paths to all pictures in the database
          */
-        private static List<string> ReadDataBase()
+        private static List<string> ReadDataBase() //FIXME
         {
             List<string> picturePaths = new List<string>(c_MaxPicturesCount);
 

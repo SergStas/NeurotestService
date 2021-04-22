@@ -38,14 +38,13 @@ export class ConfigMasterComponent implements OnInit {
       return;
 
     this.testConfigService.setTestParams({
-      questionDuration: this.duration,
-      totalCount : this.totalCount,
-      happinessCount : this.happinessCount,
-      sadnessCount : this.sadnessCount,
-      fearCount : this.fearCount,
-      excitedCount : this.excitedCount,
-      angerCount : this.angerCount,
-      disgustingCount : this.disgustingCount,
+      QuestionDuration: this.duration.toString(),
+      HappinessCount: this.happinessCount.toString(),
+      SadnessCount: this.sadnessCount.toString(),
+      FearCount: this.fearCount.toString(),
+      AstonishmentCount: this.excitedCount.toString(),
+      AngerCount: this.angerCount.toString(),
+      DisgustCount: this.disgustingCount.toString(),
     })
 
     this.router.navigate(['test-module'])

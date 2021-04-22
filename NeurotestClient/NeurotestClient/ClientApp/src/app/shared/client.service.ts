@@ -2,10 +2,9 @@ import {Injectable} from "@angular/core";
 import {NetworkService} from "./network.service";
 
 export class SubjectInfo {
-  Id?: number;
   LastName: string;
   FirstName: string;
-  Patronymic?: string;
+  Patronymic: string;
   Sex: string;
   BirthDate: string;
   Address: string;
@@ -19,9 +18,13 @@ export class ClientService {
   public clients: SubjectInfo[];
 
   private sessionClient: SubjectInfo
-
   get client() {
     return this.sessionClient;
+  }
+
+  private id: number
+  get clientId() {
+    return this.id;
   }
 
   private newClientSession = false;
@@ -58,7 +61,7 @@ export class ClientService {
     this.newClientSession = false;
 
     this.networkService.addClient(client)
-      .subscribe((id: number) => this.sessionClient.Id = id);
+      .subscribe((id: number) => this.id = id);
   }
 
   loadClients() {

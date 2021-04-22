@@ -7,11 +7,13 @@ namespace NeurotestServer.Controllers
     [Route("api/test")]
     public class TestGeneratorController : Controller
     {
-        [HttpGet]
-        public IEnumerable<JSONWrappers.Question> GetTest(JSONWrappers.TestConfig jsonConfig)
+        [HttpPost]
+        public IActionResult GetTest(JSONWrappers.TestConfig jsonConfig)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             TestConfig config = TestConfig.FromJSON(jsonConfig);
-            return TestGenerator.CreateTest(config);
+            return Ok(TestGenerator.CreateTest(config));
         }
     }
 }

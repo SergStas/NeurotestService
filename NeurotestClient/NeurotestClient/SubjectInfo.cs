@@ -11,7 +11,7 @@ namespace NeurotestServer
             string firstName = jsonInfo.FirstName;
             string lastName = jsonInfo.LastName;
             string patronymic = jsonInfo.Patronymic;
-            string name = string.Join(" ", new { firstName, lastName, patronymic});
+            string name = string.Join(" ", new string[]{ firstName, lastName, patronymic});
 
             string address = jsonInfo.Address;
             string job = jsonInfo.Job;

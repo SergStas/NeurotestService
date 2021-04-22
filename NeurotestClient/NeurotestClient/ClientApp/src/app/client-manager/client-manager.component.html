@@ -2,8 +2,8 @@
   <button class="client-menu-button"
     (click)="newClient()">Новая анкета</button> <br>
 
-  <button class="client-menu-button"
-          (click)="showClients()">Выбрать пациента</button>
+  <!--<button class="client-menu-button"
+          (click)="showClients()">Выбрать пациента</button>-->
 </div>
 
 <app-client-form *ngIf="clientService.isNewClientSession()"></app-client-form>

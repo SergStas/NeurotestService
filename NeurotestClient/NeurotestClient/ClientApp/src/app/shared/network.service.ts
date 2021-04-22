@@ -11,12 +11,12 @@ export class Question {
 
 export class Answer {
   Question: Question;
-  UserInput?: string;
-  ElapsedTime: number;
+  UserInput: string;
+  ElapsedTime: string;
 }
 
-export class ResultInfo {
-  SubjectId: number;
+export class TestResult {
+  SubjectId: string;
   Answers: Answer[];
 }
 
@@ -32,14 +32,17 @@ export class NetworkService {
   }
 
   addClient(client: SubjectInfo) {
+    console.log(client);
     return this.httpClient.post('api/subject', client);
   }
 
-  saveResult(result: ResultInfo) {
+  saveResult(result: TestResult) {
+    console.log(result);
     return this.httpClient.post('api/result', result);
   }
 
   getQuestions(params: TestConfig) {
+    console.log(params);
     return this.httpClient.post('api/test', params);
     /*return [
       {Path: 'https://ds04.infourok.ru/uploads/ex/1232/00028331-86fea6e6/img3.jpg', Type: 'happiness', Severity: 'weak'},

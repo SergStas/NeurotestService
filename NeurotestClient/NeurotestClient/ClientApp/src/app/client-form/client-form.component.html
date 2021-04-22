@@ -11,20 +11,19 @@
   </label><br>
   <label>
     Отчество:
-    <input type="text" [(ngModel)]="secondName"
-      placeholder="(если имеется)">
+    <input type="text" [(ngModel)]="secondName">
   </label><br>
 
   <div class="sex-select">
     Пол:
       <input type="radio" id="radio-male"
         name="sex" checked="checked"
-        value="male" (change)="setSex('male')">
+        value="Male" (change)="setSex('male')">
     <label for="radio-male">М</label>
 
       <input type="radio" id="radio-female"
         name="sex"
-        value="female" (change)="setSex('female')">
+        value="Female" (change)="setSex('female')">
     <label for="radio-female">Ж</label><br>
 
   </div>
