@@ -33,7 +33,7 @@ namespace NeurotestServer
             sample.AddRange(sadnessSample);
             sample = Utils.PermuteList(sample);
 
-            string assertionMessage = "Wrong sampling of {}. Expected {} pictures, got {}.";
+            string assertionMessage = "Wrong sampling of {0}. Expected {1} pictures, got {2}.";
             Debug.Assert(angerSample.Count() == TestConfig.c_SeveritiesCount * config.AngerCount,
                 string.Format(assertionMessage, "anger", config.AngerCount, angerSample.Count()));
             Debug.Assert(astonishmentSample.Count() == TestConfig.c_SeveritiesCount * config.AstonishmentCount,
@@ -72,7 +72,7 @@ namespace NeurotestServer
         /*
          * This method gets paths to all pictures in the database
          */
-        private static List<string> ReadDataBase() //FIXME
+        private static List<string> ReadDataBase()
         {
             List<string> picturePaths = new List<string>(c_MaxPicturesCount);
 
@@ -97,9 +97,9 @@ namespace NeurotestServer
             return picturePaths;
         }
 
-        private static readonly List<string> m_PicturePaths = ReadDataBase();  // Absolute paths to all pictures
-        private static readonly string m_PicturesDir = Path.Combine(Directory.GetCurrentDirectory(), c_DataBaseDir);  // Absolute path to the directory with pictures
         private const string c_DataBaseDir = @"DataBase\Pictures";  // Path to the pictures directory relative to the main server directory
         private const ushort c_MaxPicturesCount = 211;  // Maximum total number of pictures
+        private static readonly string m_PicturesDir = Path.Combine(Directory.GetCurrentDirectory(), c_DataBaseDir);  // Absolute path to the directory with pictures
+        private static readonly List<string> m_PicturePaths = ReadDataBase();  // Absolute paths to all pictures
     }
 }

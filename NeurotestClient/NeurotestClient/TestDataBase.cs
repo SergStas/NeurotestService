@@ -24,11 +24,11 @@ namespace NeurotestServer
             {
                 builder.Append(answer.ToCSVString());
             }
-            File.WriteAllText(path, builder.ToString());
+            File.WriteAllText(path, builder.ToString(), Encoding.UTF8);
 
             /* Writing statistics to CSV file */
             string statisticsFilePath = Path.Combine(m_ResultsDir, c_StatisticsFile);
-            File.AppendAllText(statisticsFilePath, result.ToCSVString());
+            File.AppendAllText(statisticsFilePath, result.ToCSVString(), Encoding.UTF8);
         }
         /* 
          * Creates TestSubject instance and stors it in the csv format.
@@ -41,7 +41,7 @@ namespace NeurotestServer
 
             string filename = Convert.ToString(subject.ID) + ".csv";
             string path = Path.Combine(m_TestSubjectsDir, filename);
-            File.WriteAllText(path, subject.ToCSVString());
+            File.WriteAllText(path, subject.ToCSVString(), Encoding.UTF8);
 
             return subject.ID;
         }
@@ -77,7 +77,7 @@ namespace NeurotestServer
             File.WriteAllText(m_IDFilePath, Convert.ToString(m_NextSubjectID));
             m_NextSubjectID++;
         }
-        private static ulong RestorNextSubjectID() //FIXME
+        private static ulong RestorNextSubjectID()
         {
             ulong ID;
 
@@ -89,7 +89,6 @@ namespace NeurotestServer
             return ID;
         }
 
-        private static ulong m_NextSubjectID = RestorNextSubjectID();  // Value of ID for the next test subject
         private const string c_TestsSubjectsDataBase = @"DataBase\Subjects";  // Path to the test subjects directory relative to the main server directory
         private const string c_ResultsDataBase = @"DataBase\Results";  // Path to the test results directory relative to the main server directory
         private const string c_StatisticsFile = "TestResults.csv";  // File with statistics for each subject
@@ -97,5 +96,6 @@ namespace NeurotestServer
         private static readonly string m_TestSubjectsDir = Path.Combine(Directory.GetCurrentDirectory(), c_TestsSubjectsDataBase);  // Absolute path to the directory with test subjects
         private static readonly string m_ResultsDir = Path.Combine(Directory.GetCurrentDirectory(), c_ResultsDataBase);  // Absolute path to the directory with test results
         private static readonly string m_IDFilePath = Path.Combine(m_TestSubjectsDir, "NextSubjectID.id");  // Absolute path to the file with current state of the ID value
+        private static ulong m_NextSubjectID = RestorNextSubjectID();  // Value of ID for the next test subject
     }
 }

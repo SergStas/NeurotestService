@@ -26,7 +26,7 @@ namespace NeurotestServer
             MaxReactionSpeeds = CulcMaxSpeeds(answers);
             MeanSpeedsBySubcategory = CulcMeanSpeedsBySubcategory(answers);
 
-            string assertionMessage = "Constructor detected wrong value for {}. It must be in range {}-{}.";
+            string assertionMessage = "Constructor detected wrong value for {0}. It must be in range {1}-{2}.";
             Debug.Assert(UnanswerdQuestionCount <= 90,
                 string.Format(assertionMessage, "'UnansweredQuestionCount'", 0, 90));
             Debug.Assert((UnansweredQuestionPercentage >= 0.0f) && (UnansweredQuestionPercentage <= 100.0f),

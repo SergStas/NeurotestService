@@ -21,7 +21,7 @@ namespace NeurotestServer
             builder.Append(";");
             builder.Append(Info.Sex.ToString("G"));
             builder.Append(";");
-            builder.Append(Info.BirthDate);
+            builder.Append(Info.BirthDate.ToString("dd.MM.yyyy"));
             builder.Append(";");
             builder.Append(Info.Address);
             builder.Append(";");
