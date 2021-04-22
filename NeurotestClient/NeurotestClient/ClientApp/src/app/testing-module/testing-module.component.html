@@ -12,35 +12,36 @@
       Время {{testingService.timeLeft | number:'1.1-2'}} <br>
 
       <img src="{{testingService.currentQuestion | question}}"
-           width="480" height="240" alt=""
-       ><br>
+           width="480" height="240" alt=""><br>
+
+      {{currentQuestion.Type}} {{currentQuestion.Path}}
 
 
       <div class="buttonsBlock">
 
-        <button
-          (click)="testingService.submitAnswer('Happiness')"
-        >Счастье</button>
+        <button (click)="testingService.submitAnswer('Happiness')">
+          Счастье
+        </button>
 
-        <button
-          (click)="testingService.submitAnswer('Sadness')"
-        >Печаль</button>
+        <button (click)="testingService.submitAnswer('Sadness')">
+          Печаль
+        </button>
 
-        <button
-          (click)="testingService.submitAnswer('Astonishment')"
-        >Заинтересованность</button> <br>
+        <button (click)="testingService.submitAnswer('Astonishment')">
+          Заинтересованность
+        </button> <br>
 
-        <button
-          (click)="testingService.submitAnswer('Disgust')"
-        >Отвращение</button>
+        <button (click)="testingService.submitAnswer('Disgust')">
+          Отвращение
+        </button>
 
-        <button
-          (click)="testingService.submitAnswer('Fear')"
-        >Страх</button>
+        <button (click)="testingService.submitAnswer('Fear')">
+          Страх
+        </button>
 
-        <button
-          (click)="testingService.submitAnswer('Anger')"
-        >Гнев</button><br>
+        <button (click)="testingService.submitAnswer('Anger')">
+          Гнев
+        </button><br>
 
       </div>
 

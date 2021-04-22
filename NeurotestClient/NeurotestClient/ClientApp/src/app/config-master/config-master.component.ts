@@ -11,12 +11,12 @@ export class ConfigMasterComponent implements OnInit {
   totalCount = 90;
   duration = 5;
 
-  happinessCount = 15;
-  sadnessCount = 15;
-  excitedCount = 15;
-  fearCount = 15;
-  disgustingCount = 15;
-  angerCount = 15;
+  happinessCount = 5;
+  sadnessCount = 5;
+  excitedCount = 5;
+  fearCount = 5;
+  disgustingCount = 5;
+  angerCount = 5;
 
   isEmotionCountValid = this.happinessCount + this.sadnessCount + this.excitedCount +
     this.fearCount + this.disgustingCount + this.angerCount === this.totalCount;
@@ -55,12 +55,12 @@ export class ConfigMasterComponent implements OnInit {
   }
 
   private validate() {
-    this.checkEmotionCount();
+    /*this.checkEmotionCount();
     if (this.totalCount < 90)
       this.errorMessage = 'Минимальное количество вопросов - 90';
-    else if (!this.isEmotionCountValid /*|| !this.isIntensityCountValid*/)
+    else if (!this.isEmotionCountValid *//*|| !this.isIntensityCountValid*//*)
       this.errorMessage = 'Количество вопросов не совпадает';
-    else if (this.duration < 3 || this.duration > 7)
+    else */if (this.duration < 3 || this.duration > 7)
       this.errorMessage = 'Время на вопрос должно составлять от 3 до 7 секунд'
     else {
       this.errorMessage = '';

@@ -6,19 +6,20 @@
 
     <div *ngIf="duration < 3 || duration > 7" class="error">Неверное значение времени</div> <br>
 
-    <label for="totalCount">Общее количество фото (от 90): </label>
+    <!--<label for="totalCount">Общее количество фото (от 90): </label>
     <input id="totalCount"
            type="number" [(ngModel)]="totalCount"
-           (change)="checkEmotionCount()"
-    >
+           (change)="checkEmotionCount()">-->
+    
 
-    <div *ngIf="totalCount < 90" class="error">Неверное количество вопросов</div> <br>
+    <!--<div *ngIf="totalCount < 90" class="error">Неверное количество вопросов</div> <br>-->
   </div>
 
   <div class="emotion-distribution">
     <p>Распределите вопросы по типу эмоции:</p>
+    Количество указывается на одну степень выраженности<br>
 
-    <div *ngIf="!isEmotionCountValid" class="error">Количество вопросов не совпадает!</div> <br>
+    <!--<div *ngIf="!isEmotionCountValid" class="error">Количество вопросов не совпадает!</div> <br>-->
 
     <label for="happinessCount">Радость: </label>
     <input type="number" [(ngModel)]="happinessCount" id="happinessCount"
