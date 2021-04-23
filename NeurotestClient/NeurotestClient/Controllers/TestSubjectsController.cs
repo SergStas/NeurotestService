@@ -10,9 +10,7 @@ namespace NeurotestServer.Controllers
         [HttpGet]
         public IEnumerable<JSONWrappers.SubjectInfo> GetSubjectsInfos()
         {
-            List<string> subjectsFiles = TestDataBase.GetSubjectsFiles();
-            List<JSONWrappers.SubjectInfo> subjects = TestDataBase.GetSubjectsInfosFromFiles(subjectsFiles);
-            return subjects;
+            return TestDataBase.GetSubjectsInfos();
         }
         [HttpPost]
         public IActionResult PostSubject(JSONWrappers.SubjectInfo jsonInfo)

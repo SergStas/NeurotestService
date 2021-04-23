@@ -5,7 +5,7 @@
      */
     public class Question
     {
-        public string Path { get; set; }
+        public string Url { get; set; }  // Url to the picture
         public string Type { get; set; }
         public string Severity { get; set; }
     }

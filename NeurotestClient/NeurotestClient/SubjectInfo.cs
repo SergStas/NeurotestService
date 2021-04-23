@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Diagnostics;
 
 namespace NeurotestServer
 {
@@ -40,24 +38,20 @@ namespace NeurotestServer
 
             return jsonInfo;
         }
-        public static SubjectInfo FromCSV(string path)
-        {
-            Debug.Assert(File.Exists(path), $"Expected valid file path. Got: {path}.");
-
-            string csvString = File.ReadAllText(path);
+        public static SubjectInfo FromCSV(string csvString)
+        {   
             /* 
              * Getting data from csv string.
-             * First line in the file is the header, second - data.
+             * First element in the row is the ID, so we need to skip it.
              */
-            string subjectDataString = csvString.Split('\n')[1];
-            string[] subjectFiledsStrings = subjectDataString.Split(';');
+            string[] subjectFiledsStrings = csvString.Split(';');
 
-            string name = subjectFiledsStrings[0];
-            Sex sex = Utils.SexStringToEnum(subjectFiledsStrings[1]);
-            DateTime birthDate = Convert.ToDateTime(subjectFiledsStrings[2]);
-            string address = subjectFiledsStrings[3];
-            string job = subjectFiledsStrings[4];
-            string diseases = subjectFiledsStrings[5];
+            string name = subjectFiledsStrings[1];
+            Sex sex = Utils.SexStringToEnum(subjectFiledsStrings[2]);
+            DateTime birthDate = Convert.ToDateTime(subjectFiledsStrings[3]);
+            string address = subjectFiledsStrings[4];
+            string job = subjectFiledsStrings[5];
+            string diseases = subjectFiledsStrings[6];
             string phone = subjectFiledsStrings[6];
 
             return new SubjectInfo(name, sex, birthDate, address, job, diseases, phone);

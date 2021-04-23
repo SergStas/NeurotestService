@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 
@@ -39,34 +40,20 @@ namespace NeurotestServer
             TestSubject subject = new TestSubject(m_NextSubjectID, info);
             UpdateNextSubjectID();
 
-            string filename = Convert.ToString(subject.ID) + ".csv";
-            string path = Path.Combine(m_TestSubjectsDir, filename);
-            File.WriteAllText(path, subject.ToCSVString(), Encoding.UTF8);
+            File.AppendAllText(m_SubjectsFilePath, subject.ToCSVString(), Encoding.UTF8);
 
             return subject.ID;
         }
-        /* Returns a list of all subject files in the database */
-        public static List<string> GetSubjectsFiles()
+        /* Reads subjects data */
+        public static List<JSONWrappers.SubjectInfo> GetSubjectsInfos()
         {
-            List<string> files = new List<string>(Convert.ToInt32(m_NextSubjectID - 1));
+            /* Skipping header */
+            IEnumerable<string> csvRows = File.ReadLines(m_SubjectsFilePath).Skip(1);
 
-            foreach (string subjectFilename in Directory.GetFiles(m_TestSubjectsDir))
+            List<JSONWrappers.SubjectInfo> subjects = new List<JSONWrappers.SubjectInfo>(csvRows.Count());
+            foreach (string row in csvRows)
             {
-                if (Path.GetExtension(subjectFilename) == ".id") continue;
-                files.Add(subjectFilename);
-            }
-
-            return files;
-        }
-        /* Read subjects data from given files */
-        public static List<JSONWrappers.SubjectInfo> GetSubjectsInfosFromFiles(List<string> filenames)
-        {
-            List<JSONWrappers.SubjectInfo> subjects = new List<JSONWrappers.SubjectInfo>(filenames.Count);
-
-            foreach (string filename in filenames)
-            {
-                string subjectPath = Path.Combine(c_TestsSubjectsDataBase, filename);
-                SubjectInfo info = SubjectInfo.FromCSV(subjectPath);
+                SubjectInfo info = SubjectInfo.FromCSV(row);
                 subjects.Add(info.ToJSON());
             }
 
@@ -74,8 +61,7 @@ namespace NeurotestServer
         }
         private static void UpdateNextSubjectID()
         {
-            File.WriteAllText(m_IDFilePath, Convert.ToString(m_NextSubjectID));
-            m_NextSubjectID++;
+            File.WriteAllText(m_IDFilePath, Convert.ToString(++m_NextSubjectID));
         }
         private static ulong RestorNextSubjectID()
         {
@@ -96,6 +82,7 @@ namespace NeurotestServer
         private static readonly string m_TestSubjectsDir = Path.Combine(Directory.GetCurrentDirectory(), c_TestsSubjectsDataBase);  // Absolute path to the directory with test subjects
         private static readonly string m_ResultsDir = Path.Combine(Directory.GetCurrentDirectory(), c_ResultsDataBase);  // Absolute path to the directory with test results
         private static readonly string m_IDFilePath = Path.Combine(m_TestSubjectsDir, "NextSubjectID.id");  // Absolute path to the file with current state of the ID value
+        private static readonly string m_SubjectsFilePath = Path.Combine(m_TestSubjectsDir, "Subjects.csv"); // Absolute path to the file with subjects data
         private static ulong m_NextSubjectID = RestorNextSubjectID();  // Value of ID for the next test subject
     }
 }

@@ -11,12 +11,15 @@ namespace NeurotestServer
         }
         public string ToCSVString()
         {
-            StringBuilder builder = new StringBuilder(c_CSVHeader);
+            StringBuilder builder = new StringBuilder();
 
-            string fullName = 
+            string fullName =
                 Info.LastName + " " +
                 Info.FirstName + " " +
                 ((Info.Patronymic == string.Empty) ? "" : " " + Info.Patronymic);
+
+            builder.Append(ID);
+            builder.Append(";");
             builder.Append(fullName);
             builder.Append(";");
             builder.Append(Info.Sex.ToString("G"));
@@ -30,12 +33,11 @@ namespace NeurotestServer
             builder.Append(string.Join(", ", Info.Diseases));
             builder.Append(";");
             builder.Append(Info.Phone);
+            builder.Append("\n");
 
             return builder.ToString();
         }
         public ulong ID { get; }
         public SubjectInfo Info { get; }
-
-        private const string c_CSVHeader = "Name;Sex;BirthDate;Address;Job;Diseases;Phone\n";
     }
 }
