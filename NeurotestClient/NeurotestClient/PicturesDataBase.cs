@@ -46,6 +46,8 @@ namespace NeurotestServer
                 string.Format(assertionMessage, "happiness", config.HappinessCount, happinessSample.Count()));
             Debug.Assert(sadnessSample.Count() == TestConfig.c_SeveritiesCount * config.SadnessCount,
                 string.Format(assertionMessage, "sadness", config.SadnessCount, sadnessSample.Count()));
+            Debug.Assert(sample.Distinct().Count() == sample.Count(),
+                $"Expected all elements to be unique. Got {sample.Count() - sample.Distinct().Count()} duplicates.");
 
             return sample;
         }
@@ -75,7 +77,7 @@ namespace NeurotestServer
             List<string> sample = new List<string>();
             sample.AddRange(weakSample);
             sample.AddRange(averageSample);
-            sample.AddRange(weakSample);
+            sample.AddRange(strongSample);
             sample = Utils.PermuteList(sample);
 
             return sample;
