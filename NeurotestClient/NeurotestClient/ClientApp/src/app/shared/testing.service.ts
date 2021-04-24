@@ -92,7 +92,7 @@ export class TestingService {
     this.answers.push({
       Question: this.currentQuestion,
       UserInput: answer,
-      ElapsedTime: this.timer
+      ElapsedTime: this.timer.toString()
     });
 
     this.nextQuestion();
@@ -115,7 +115,7 @@ export class TestingService {
     this.networkService.saveResult({
       SubjectId: this.clientService.clientId.toString(),
       Answers: this.answers
-    });
+    }).subscribe();
   }
 
   private setQuestion() {

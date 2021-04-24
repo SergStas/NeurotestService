@@ -9,7 +9,7 @@ export class EmotionPipe implements PipeTransform {
       case 'happiness': return 'счастье';
       case 'sadness': return 'печаль';
       case 'fear': return 'страх';
-      case 'astonishment': return 'заинтересованность';
+      case 'astonishment': return 'удивление';
       case 'disgust': return 'отвращение';
       case 'anger': return 'гнев';
       default: return null
