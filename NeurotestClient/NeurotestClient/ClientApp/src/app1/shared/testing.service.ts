@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
-import { BehaviorSubject, interval, Subscription } from "rxjs";
-import { Answer, NetworkService, Question, QuestionJson } from "./network.service";
+import {BehaviorSubject, interval, Subscription} from "rxjs";
+import {Answer, NetworkService, Question} from "./network.service";
 import {TestConfigService} from "./test-config.service";
-import { ClientService } from "./client.service";
+import {ClientService} from "./client.service";
 
 @Injectable({providedIn: 'root'})
 export class TestingService {
@@ -19,7 +19,7 @@ export class TestingService {
     return this.answers;
   }
   get correctCount() {
-    return this.answers.filter(a => Number.parseFloat(a.ElapsedTime) >= 0 && a.Question.Type == a.UserInput).length;
+    return this.answers.filter(a => a.UserInput && a.Question.Type == a.UserInput).length;
   }
   get accuracy() {
     return this.correctCount / this.questionsCount;
@@ -70,25 +70,22 @@ export class TestingService {
 
     this.networkService.getQuestions(this.configService.getTestParams())
       .subscribe(
-        (questionsData: QuestionJson[]) => {
-          this.questions = questionsData.map(q => this.convertToQuestion(q));
+        (questionsData: Question[]) => {
+          this.questions = questionsData;
+          this.setQuestion();
         }
       );
   }
 
   startTest() {
     this.test = true;
-    this.setQuestion();
   }
 
   abortTest() {
     this.test = false;
-    this.setup()
   }
 
   submitAnswer(answer: string) {
-    if (!this.test)
-      return;
     this.answers.push({
       Question: this.currentQuestion,
       UserInput: answer,
@@ -141,21 +138,5 @@ export class TestingService {
 
   showResults() {
     this.results = true;
-  }
-
-  convertToQuestion(q: QuestionJson): Question {
-    return {
-      Url: this.convertUrl(q.url),
-      Type: q.type,
-      Severity: q.severity
-    }
-  }
-
-  isCorrect(a: Answer) {
-    return Number.parseFloat(a.ElapsedTime) >= 0 && a.Question.Type.toLowerCase() == a.UserInput.toLowerCase();
-  }
-
-  private convertUrl(untrunc: string) {
-    return untrunc.replace('https://localhost', '');
   }
 }

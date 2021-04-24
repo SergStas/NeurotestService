@@ -1,10 +1,4 @@
-<div class="container"
-  (keydown.1)="testingService.submitAnswer('Happiness')"
-  (keydown.2)="testingService.submitAnswer('Sadness')"
-  (keydown.3)="testingService.submitAnswer('Astonishment')"
-  (keydown.4)="testingService.submitAnswer('Disgust')"
-  (keydown.5)="testingService.submitAnswer('Fear')"
-  (keydown.6)="testingService.submitAnswer('Anger')"> <!--todo-->
+<div class="container">
 
   <button (click)="beginSession()" *ngIf="!testingService.testSession && !testingService.showEndMessage">Начать тест</button><br>
 
@@ -20,6 +14,8 @@
       <img src="{{testingService.currentQuestion | question}}"
            width="480" height="240" alt=""><br>
 
+      {{currentQuestion.Type}} {{currentQuestion.Path}}
+
 
       <div class="buttonsBlock">
 
@@ -33,7 +29,7 @@
 
         <button (click)="testingService.submitAnswer('Astonishment')">
           Заинтересованность
-        </button>
+        </button> <br>
 
         <button (click)="testingService.submitAnswer('Disgust')">
           Отвращение
@@ -59,9 +55,8 @@
     <h1>Тест завершен, все ответы записаны</h1>
 
     <button (click)="testingService.showResults()"
-            *ngIf="!testingService.displayResults && testingService.showEndMessage">
-      Показать результаты
-    </button><br>
+            *ngIf="!testingService.displayResults && testingService.showEndMessage"
+    >Показать результаты</button><br>
 
     <button (click)="rerun()">Пройти еще раз</button><br>
 
@@ -77,21 +72,22 @@
     <ul>
       <li *ngFor="let answer of testingService.testResults; let i = index">
 
-        Вопрос {{i + 1}} - {{(testingService.isCorrect(answer) ? 'Верно' : 'Ошибка')}}<br>
-        <img src="{{answer.Question | question}}"
-             width="240" height="120" alt=""><br>
+        Вопрос {{i + 1}} - {{(answer.userInput && answer.question.emotion == answer.userInput ? 'Верно' : 'Ошибка')}}<br>
+        <img src="{{answer.question | question}}"
+             width="240" height="120" alt=""
+        ><br>
 
-        <div *ngIf="getElapsed(answer) >= 0">
+        <div *ngIf="answer.userInput">
           Ваш ответ - {{
-            (answer.UserInput | emotion) +
-            (testingService.isCorrect(answer) ? '' : ', правильный - ' + (answer.Question.Type | emotion))
+            (answer.userInput | emotion) +
+            (answer.userInput == answer.question.emotion ? '' : ', правильный - ' + (answer.question.emotion | emotion))
           }}<br>
-          Затраченное время - {{answer.ElapsedTime | number:'1.1-2'}}
+          Затраченное время - {{answer.elapsedTime | number:'1.1-2'}}
         </div>
 
-        <div *ngIf="getElapsed(answer) < 0">
+        <div *ngIf="!answer.userInput">
           Ответ не был дан, время истекло<br>
-          Правильный ответ - {{answer.Question.Type | emotion}}<br>
+          Правильный ответ - {{answer.question.emotion | emotion}}<br>
         </div>
 
       </li>

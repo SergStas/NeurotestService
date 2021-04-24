@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import { Answer } from '../shared/network.service';
 import {TestingService} from "../shared/testing.service";
 
 @Component({
@@ -34,9 +33,5 @@ export class TestingModuleComponent implements OnInit{
   rerun() {
     this.testingService.setup();
     this.testingService.startTest();
-  }
-
-  getElapsed(answer: Answer) {
-    return Number.parseFloat(answer.ElapsedTime);
   }
 }
