@@ -49,6 +49,17 @@ namespace NeurotestServer
 
             return sample;
         }
+        public static string ConvertPathToUrl(string path)
+        {
+            Debug.Assert(File.Exists(path), $"Attempt to convert invalid file path: {path}.");
+            return path.Replace(m_PicturesDir, @"https://localhost/Pictures").Replace(Path.DirectorySeparatorChar, '/');
+        }
+        public static string ConvertUrlToPath(string url)
+        {
+            string path = url.Replace(@"https://localhost/Pictures", m_PicturesDir).Replace('/', Path.DirectorySeparatorChar);
+            Debug.Assert(File.Exists(path), $"Got wrong URL to path convertion: {path}.");
+            return path;
+        }
         private static List<string> SampleEmotionType(short quantity, EmotionType type)
         {
             var filtered = m_PicturePaths.Where(path => Path.GetDirectoryName(path).Contains(type.ToString("G")));

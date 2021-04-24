@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Diagnostics;
 
 namespace NeurotestServer
@@ -21,13 +20,13 @@ namespace NeurotestServer
         }
         public static Question FromJSON(JSONWrappers.Question jsonQuestion)
         {
-            return new Question(UrlToPath(jsonQuestion.Url));
+            return new Question(PicturesDataBase.ConvertUrlToPath(jsonQuestion.Url));
         }
         public JSONWrappers.Question ToJSON()
         {
             JSONWrappers.Question jsonQuestion = new JSONWrappers.Question
             {
-                Url = PathToUrl(Path),
+                Url = PicturesDataBase.ConvertPathToUrl(Path),
                 Type = Type.ToString("G"),
                 Severity = Severity.ToString("G")
             };
@@ -70,16 +69,5 @@ namespace NeurotestServer
             };
         }
         private static string GetFileName(string path) => System.IO.Path.GetFileName(path);
-        private static string PathToUrl(string path)
-        {
-            Debug.Assert(File.Exists(path), $"Attempt to convert invalid file path: {path}.");
-            return new Uri(path).AbsoluteUri;
-        }
-        private static string UrlToPath(string url)
-        {
-            string path = new Uri(url).LocalPath;
-            Debug.Assert(File.Exists(path), $"Got wrong URL to path convertion: {path}.");
-            return path;
-        }
     }
 }
