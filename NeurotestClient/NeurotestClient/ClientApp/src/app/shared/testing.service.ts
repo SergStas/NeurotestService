@@ -145,7 +145,7 @@ export class TestingService {
 
   convertToQuestion(q: QuestionJson): Question {
     return {
-      Url: this.convertUrl(q.url),
+      Url: q.url,
       Type: q.type,
       Severity: q.severity
     }
@@ -153,9 +153,5 @@ export class TestingService {
 
   isCorrect(a: Answer) {
     return Number.parseFloat(a.ElapsedTime) >= 0 && a.Question.Type.toLowerCase() == a.UserInput.toLowerCase();
-  }
-
-  private convertUrl(untrunc: string) {
-    return untrunc.replace('https://localhost', '');
   }
 }
