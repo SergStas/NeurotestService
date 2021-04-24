@@ -54,7 +54,8 @@ namespace NeurotestServer
             { EmotionType.Disgust, EmotionType.Anger },
             { EmotionType.Fear, EmotionType.Sadness },
             { EmotionType.Happiness, EmotionType.Astonishment },
-            { EmotionType.Sadness, EmotionType.Fear }
+            { EmotionType.Sadness, EmotionType.Fear },
+            { EmotionType.Undefined, EmotionType.Undefined }
         };
     }
 }
