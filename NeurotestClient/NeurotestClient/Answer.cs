@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Diagnostics;
 
 namespace NeurotestServer
@@ -11,7 +12,7 @@ namespace NeurotestServer
         {
             Question question = Question.FromJSON(jsonAnswer.Question);
             EmotionType userInput = Utils.EmotionTypeStringToEnum(jsonAnswer.UserInput);
-            float elapsedTime = Convert.ToSingle(jsonAnswer.ElapsedTime);
+            float elapsedTime = Convert.ToSingle(jsonAnswer.ElapsedTime, new CultureInfo("en-US"));
 
             return new Answer(question, userInput, elapsedTime);
         }
@@ -53,7 +54,8 @@ namespace NeurotestServer
             { EmotionType.Disgust, EmotionType.Anger },
             { EmotionType.Fear, EmotionType.Sadness },
             { EmotionType.Happiness, EmotionType.Astonishment },
-            { EmotionType.Sadness, EmotionType.Fear }
+            { EmotionType.Sadness, EmotionType.Fear },
+            { EmotionType.Undefined, EmotionType.Undefined }
         };
     }
 }
