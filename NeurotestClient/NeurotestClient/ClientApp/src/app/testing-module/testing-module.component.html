@@ -14,40 +14,51 @@
 
       <h1>Какую эмоцию выражает данное изображение?</h1> <br>
 
-      Вопрос {{testingService.questionNumber + 1}}/{{testingService.questionsCount}}<br>
-      Время {{testingService.timeLeft | number:'1.1-2'}} <br>
-
-      <img src="{{testingService.currentQuestion | question}}"
-           width="480" height="240" alt=""><br>
-
-
-      <div class="buttonsBlock">
-
-        <button (click)="testingService.submitAnswer('Happiness')">
-          Счастье
-        </button>
-
-        <button (click)="testingService.submitAnswer('Sadness')">
-          Печаль
-        </button>
-
-        <button (click)="testingService.submitAnswer('Astonishment')">
-          Удивление
-        </button>
-
-        <button (click)="testingService.submitAnswer('Disgust')">
-          Отвращение
-        </button>
-
-        <button (click)="testingService.submitAnswer('Fear')">
-          Страх
-        </button>
-
-        <button (click)="testingService.submitAnswer('Anger')">
-          Гнев
-        </button><br>
-
+      <div class="info">
+        <p>
+          Вопрос {{testingService.questionNumber + 1}}/{{testingService.questionsCount}} |
+          Время {{testingService.timeLeft | number:'1.1-2'}}
+        </p>
       </div>
+
+      <img src="{{testingService.currentQuestion | question}}" alt=""><br>
+
+      <table>
+        <tr>
+          <td>
+            <button class="input-button" (click)="testingService.submitAnswer('Happiness')">
+              1. Счастье
+            </button>
+          </td>
+          <td>
+            <button class="input-button" (click)="testingService.submitAnswer('Sadness')">
+              2. Печаль
+            </button>
+          </td>
+          <td>
+            <button class="input-button" (click)="testingService.submitAnswer('Astonishment')">
+              3. Удивление
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button class="input-button" (click)="testingService.submitAnswer('Disgust')">
+              4. Отвращение
+            </button>
+          </td>
+          <td>
+            <button class="input-button" (click)="testingService.submitAnswer('Fear')">
+              5. Страх
+            </button>
+          </td>
+          <td>
+            <button class="input-button" (click)="testingService.submitAnswer('Anger')">
+              6. Гнев
+            </button><br>
+          </td>
+        </tr>
+      </table>
 
     </div>
 
@@ -99,7 +110,7 @@
 
   </div>
 
-  <button (click)="back()" *ngIf="!testingService.showEndMessage">Назад</button>
+  <button (click)="back()" *ngIf="!testingService.showEndMessage && !testingService.testSession">Вернуться к настройкам</button>
 </div>
 
 <ng-template #noQuestion>

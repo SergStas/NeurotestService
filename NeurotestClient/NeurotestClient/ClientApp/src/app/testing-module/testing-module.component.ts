@@ -33,7 +33,6 @@ export class TestingModuleComponent implements OnInit{
 
   rerun() {
     this.testingService.setup();
-    this.testingService.startTest();
   }
 
   getElapsed(answer: Answer) {

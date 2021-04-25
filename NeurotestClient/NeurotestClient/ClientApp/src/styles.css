@@ -1,16 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
-
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.container {
+  padding-top: 3rem;
+  width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
-code {
-  color: #e01a76;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+button {
+  margin: 10px auto;
+  font-size: 1rem;
+  padding: 10px 15px;
+  border: 1px solid #000;
+  outline: none;
+  background: #eee;
+  transition: .3s all;
+  cursor: pointer;
 }

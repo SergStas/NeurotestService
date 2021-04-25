@@ -15,6 +15,7 @@ import { HttpClientModule } from "@angular/common/http";
 
 const routes: Routes = [
   { path: 'client-manager', component: ClientManagerComponent },
+  { path: 'client-form', component: ClientFormComponent },
   { path: 'config-master', component: ConfigMasterComponent },
   { path: 'test-module', component: TestingModuleComponent }
 ];

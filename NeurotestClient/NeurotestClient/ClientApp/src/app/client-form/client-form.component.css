@@ -24,19 +24,6 @@ input[type="text"], input[type="number"], input[type="date"] {
   outline: none;
 }
 
-button {
-  flex-basis: 20%;
-  height: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
-  background: #eee;
-  transition: .3s all;
-  cursor: pointer;
-  margin-bottom: 20px;
-  padding: 5px;
-}
-
 .validation-error {
   margin-bottom: 20px;
   border: 1px solid #f88;

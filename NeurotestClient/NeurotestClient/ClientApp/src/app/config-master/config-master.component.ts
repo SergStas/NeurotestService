@@ -18,19 +18,11 @@ export class ConfigMasterComponent implements OnInit {
   disgustingCount = 5;
   angerCount = 5;
 
-  isEmotionCountValid = this.happinessCount + this.sadnessCount + this.excitedCount +
-    this.fearCount + this.disgustingCount + this.angerCount === this.totalCount;
-
   errorMessage = '';
 
   constructor(public testConfigService: TestConfigService, private router: Router) { }
 
   ngOnInit(): void {
-  }
-
-  checkEmotionCount() {
-    this.isEmotionCountValid = (this.happinessCount + this.sadnessCount + this.excitedCount +
-      this.fearCount + this.disgustingCount + this.angerCount) == this.totalCount;
   }
 
   submit() {
@@ -51,16 +43,11 @@ export class ConfigMasterComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['/client-manager']);
+    this.router.navigate(['/client-form']);
   }
 
   private validate() {
-    /*this.checkEmotionCount();
-    if (this.totalCount < 90)
-      this.errorMessage = 'Минимальное количество вопросов - 90';
-    else if (!this.isEmotionCountValid *//*|| !this.isIntensityCountValid*//*)
-      this.errorMessage = 'Количество вопросов не совпадает';
-    else */if (this.duration < 3 || this.duration > 7)
+    if (this.duration < 3 || this.duration > 7)
       this.errorMessage = 'Время на вопрос должно составлять от 3 до 7 секунд'
     else {
       this.errorMessage = '';

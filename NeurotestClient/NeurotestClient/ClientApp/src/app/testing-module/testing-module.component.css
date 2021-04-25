@@ -1,0 +1,37 @@
+img {
+  width: 800px;
+  height: 480px;
+}
+
+.questionBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+table {
+  width: 800px;
+}
+
+.input-button {
+  width: 100%;
+}
+
+.container {
+  padding-top: 0;
+}
+
+.info {
+  font-size: 1.2rem;
+}
+
+h1 {
+  margin: 0;
+}
+
+li {
+  margin: 20px;
+}
+
+.testResults {
+  font-size: 1.2rem;
+}
