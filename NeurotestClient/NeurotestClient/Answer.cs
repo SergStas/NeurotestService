@@ -26,7 +26,7 @@ namespace NeurotestServer
             builder.Append(";");
             builder.Append(UserInput);
             builder.Append(";");
-            builder.Append(ElapsedTime);
+            builder.Append(ElapsedTime.ToString("0.00"));
             builder.Append("\n");
 
             return builder.ToString();
