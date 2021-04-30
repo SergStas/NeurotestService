@@ -52,7 +52,7 @@ namespace NeurotestServer
             string address = subjectFiledsStrings[4];
             string job = subjectFiledsStrings[5];
             string diseases = subjectFiledsStrings[6];
-            string phone = subjectFiledsStrings[6];
+            string phone = subjectFiledsStrings[7];
 
             return new SubjectInfo(name, sex, birthDate, address, job, diseases, phone);
         }

@@ -16,7 +16,7 @@ namespace NeurotestServer
             string fullName =
                 Info.LastName + " " +
                 Info.FirstName + " " +
-                ((Info.Patronymic == string.Empty) ? "" : " " + Info.Patronymic);
+                ((Info.Patronymic == string.Empty) ? "" : Info.Patronymic);
 
             builder.Append(ID);
             builder.Append(";");
