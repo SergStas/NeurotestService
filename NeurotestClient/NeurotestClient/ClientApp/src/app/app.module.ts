@@ -12,12 +12,16 @@ import { ConfigMasterComponent } from './config-master/config-master.component';
 import {QuestionPipe} from "./shared/question.pipe";
 import { EmotionPipe } from "./shared/emotion.pipe";
 import { HttpClientModule } from "@angular/common/http";
+import { VideoConfigComponent } from './video-config/video-config.component';
+import { VideoPlayerComponent } from './video-player/video-player.component';
 
 const routes: Routes = [
   { path: 'client-manager', component: ClientManagerComponent },
   { path: 'client-form', component: ClientFormComponent },
   { path: 'config-master', component: ConfigMasterComponent },
-  { path: 'test-module', component: TestingModuleComponent }
+  { path: 'test-module', component: TestingModuleComponent },
+  { path: 'video-config', component: VideoConfigComponent },
+  { path: 'video-player', component: VideoPlayerComponent }
 ];
 
 @NgModule({
@@ -28,7 +32,9 @@ const routes: Routes = [
         ClientManagerComponent,
         ConfigMasterComponent,
         QuestionPipe,
-        EmotionPipe
+        EmotionPipe,
+        VideoConfigComponent,
+        VideoPlayerComponent
     ],
   imports: [
     RouterModule.forRoot(routes),

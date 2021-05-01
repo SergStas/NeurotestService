@@ -26,6 +26,12 @@ export class TestResult {
   Answers: Answer[];
 }
 
+export class VideoInfo {
+  type: string;
+  name: string;
+  url: string;
+}
+
 @Injectable({providedIn: 'root'})
 export class NetworkService {
 
@@ -50,5 +56,23 @@ export class NetworkService {
   getQuestions(params: TestConfig) {
     console.log(params);
     return this.httpClient.post('api/test', params);
+  }
+
+  getAllVideos() {
+    return [
+      {type: 'Happiness', name: 'hap1.mp4', url: ''},
+      {type: 'Happiness', name: 'hap2.mp4', url: ''},
+      {type: 'Sadness', name: 'sad.mp4', url: ''},
+      {type: 'Astonishment', name: 'ast1.mp4', url: ''},
+      {type: 'Fear', name: 'fear1.mp4', url: ''},
+      {type: 'Disgust', name: 'dis1.mp4', url: ''}
+    ];
+  }
+
+  getDefaultVideos(id: number) {
+    return [
+      {type: 'Happiness', name: 'hap2.mp4', url: ''},
+      {type: 'Sadness', name: 'sad.mp4', url: ''}
+    ];
   }
 }

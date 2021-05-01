@@ -1,0 +1,100 @@
+<div class="container">
+  <div *ngIf="configService.message">
+    <p>{{configService.message}}</p>
+  </div>
+
+  <div class="vidconf-type-selector" *ngIf="configService.displayMenu">
+    <button (click)="configService.loadAuto()">Автоподбор видео</button>
+
+    <button (click)="configService.manual()">Выбрать видео</button>
+  </div>
+
+  <div class="vidconf-auto-submit" *ngIf="configService.displaySubmit">
+    <p>Будут воспроизведены видео:</p>
+    <p *ngFor="let video of configService.auto; let i = index">{{i + 1}}. {{video.name}} ({{video.type | emotion}})</p>
+    <button (click)="configService.next()">Принять</button>
+    <button (click)="configService.manual()">Настроить вручную</button>
+  </div>
+
+  <div class="vidconf-manual" *ngIf="configService.displayList">
+    <p>Выбрано {{configService.selected.length}} видео</p>
+    <li *ngFor="let video of configService.selected">
+      {{video.name}} ({{video.type | emotion}})
+      <button (click)="configService.delete(video.name)">X</button>
+    </li>
+
+    <div class="vidconf-video-type-selector" *ngIf="configService.displayTypeSelector">
+      <p> Выберите тип:</p>
+      <ul>
+        <li>
+          <p (click)="configService.submitType('Happiness')">Счастье</p>
+        </li>
+        <li>
+          <p (click)="configService.submitType('Sadness')">Печаль</p>
+        </li>
+        <li>
+          <p (click)="configService.submitType('Astonishment')">Удивление</p>
+        </li>
+        <li>
+          <p (click)="configService.submitType('Fear')">Страх</p>
+        </li>
+        <li>
+          <p (click)="configService.submitType('Disgust')">Отвращение</p>
+        </li>
+        <li>
+          <p (click)="configService.submitType('Anger')">Злость</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="vidconf-video-selector" *ngIf="configService.displayNameSelector">
+        <p>Выберите видео:</p>
+        <ul>
+          <li (click)="configService.chooseVideo(video.name)"
+              *ngFor="let video of configService.filtered">
+            {{video.name}}
+          </li>
+        </ul>
+    </div>
+
+    <button (click)="configService.add()" [disabled]="configService.selected.length >= 5"
+            *ngIf="!(configService.displayTypeSelector || configService.displayNameSelector)">Добавить</button>
+
+    <button (click)="configService.setupControls()" [disabled]="!configService.selected.length">Далее</button>
+
+    <button (click)="configService.showMenu()">Назад</button>
+  </div>
+
+  <div class="vidconf-control-type" *ngIf="configService.displayControlType">
+    <p>Режим воспроизведения:</p>
+
+    <label for="radio-manual">Ручной</label>
+    <input id="radio-manual" type="radio" name="video-control" checked="checked"
+           (change)="configService.selectControlType('manual')">
+
+    <label for="radio-auto">Автоматический</label>
+    <input id="radio-auto" type="radio" name="video-control"
+           (change)="configService.selectControlType('auto')">
+
+    <div class="vidconf-duration-options" *ngIf="configService.displayDurationInputs">
+
+      <p>Время паузы между видео: (от 10 до 180 секунд)</p>
+      <input type="number" [(ngModel)]="configService.pause">
+
+      <p>Ограничение по времени:
+        <input type="checkbox" name="video-control"
+               (change)="configService.toggleLimit()"></p>
+
+      <div *ngIf="configService.displayLimitInput">
+        <p>Лимит воспроизведения:</p>
+        <input type="number" [(ngModel)]="configService.limit">
+      </div>
+    </div>
+
+    <button (click)="configService.manual()">Вернуться к выбору</button>
+
+    <button (click)="configService.submitConfigs()">Готово</button>
+  </div>
+
+</div>
+
