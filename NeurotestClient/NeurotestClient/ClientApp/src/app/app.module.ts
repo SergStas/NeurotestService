@@ -15,6 +15,11 @@ import { HttpClientModule } from "@angular/common/http";
 import { VideoConfigComponent } from './video-config/video-config.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
 
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
+
 const routes: Routes = [
   { path: 'client-manager', component: ClientManagerComponent },
   { path: 'client-form', component: ClientFormComponent },
@@ -42,7 +47,11 @@ const routes: Routes = [
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    VgCoreModule,
+    VgOverlayPlayModule,
+    VgControlsModule,
+    VgBufferingModule
   ],
   exports: [
     RouterModule
