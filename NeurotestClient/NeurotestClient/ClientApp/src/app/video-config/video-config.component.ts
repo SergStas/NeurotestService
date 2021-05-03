@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   templateUrl: './video-config.component.html',
   styleUrls: ['./video-config.component.css']
 })
-export class VideoConfigComponent {
+export class VideoConfigComponent implements OnInit {
   get auto(): VideoInfo[] {
     return this._auto;
   }
@@ -73,10 +73,21 @@ export class VideoConfigComponent {
     private _router: Router
   ) { }
 
-  showAutoload() {
-    if (this._clientService.clientId != null) //fixme
+  ngOnInit(): void {
+    if (this._clientService.clientId == null) {
       this._message = 'Данные о пациенте отсутсвуют, пожалуйста, проведите сессию тестирования или выберите видео вручную';
-    else {
+      this._displayControlConfig =
+        this._displayList =
+        this._displayDurationInputs =
+        this._displayLimitInput =
+        this._displayAutoload =
+        this._displayNameSelector =
+        this._displayMenu =
+        this._displayTypeSelector = false;
+    }
+  }
+
+  showAutoload() {
       this._displayMenu =
         this._displayControlConfig =
         this._displayDurationInputs =
@@ -88,7 +99,6 @@ export class VideoConfigComponent {
       this._message = '';
 
       this._auto = this._networkService.getDefaultVideos(this._clientService.clientId);
-    }
   }
 
   goToPlayer() {
@@ -131,15 +141,28 @@ export class VideoConfigComponent {
   }
 
   showMenu() {
-    this._displayControlConfig =
-      this._displayList =
-      this._displayDurationInputs =
-      this._displayLimitInput =
-      this._displayAutoload =
-      this._displayNameSelector =
-      this._displayTypeSelector = false;
-    this._displayMenu = true;
-    this._message = '';
+    if (this._clientService.clientId == null) {
+      this._message = 'Данные о пациенте отсутсвуют, пожалуйста, проведите сессию тестирования или выберите видео вручную';
+      this._displayControlConfig =
+        this._displayList =
+        this._displayDurationInputs =
+        this._displayLimitInput =
+        this._displayAutoload =
+        this._displayNameSelector =
+        this._displayMenu =
+        this._displayTypeSelector = false;
+    }
+    else {
+      this._displayControlConfig =
+        this._displayList =
+        this._displayDurationInputs =
+        this._displayLimitInput =
+        this._displayAutoload =
+        this._displayNameSelector =
+        this._displayTypeSelector = false;
+      this._displayMenu = true;
+      this._message = '';
+    }
   }
 
   add() {

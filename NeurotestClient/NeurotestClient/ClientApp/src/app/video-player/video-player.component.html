@@ -1,1 +1,51 @@
-<p>video-player works!</p>
+<div class="container" *ngIf="isConfigsValid(); else invalidConfigs">
+  <div *ngIf="watchSession">
+    <p>Видео {{index + 1}} из {{videoService.sessionPlaylist.length}}</p>
+
+      <vg-player (onPlayerReady)="onPlayerReady($event)">
+        <vg-overlay-play></vg-overlay-play>
+        <vg-buffering></vg-buffering>
+
+        <vg-scrub-bar>
+          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+          <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+        </vg-scrub-bar>
+
+        <vg-controls>
+          <vg-play-pause></vg-play-pause>
+          <vg-playback-button></vg-playback-button>
+
+          <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+          <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+          <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+          <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+          <vg-track-selector></vg-track-selector>
+          <vg-mute></vg-mute>
+          <vg-volume></vg-volume>
+
+          <vg-fullscreen></vg-fullscreen>
+        </vg-controls>
+
+        <video #media [vgMedia]="media" [src]="current.url" id="singleVideo" preload="auto" crossorigin>
+        </video>
+      </vg-player>
+
+    <div *ngIf="isPause">
+      <p>Воспроизведение начнется через {{pauseTime | number:'1.0-0'}} секунд</p>
+    </div>
+
+    <button (click)="switchNext()">Следующее видео</button>
+  </div>
+
+  <div *ngIf="end">
+    <p>Список воспроизведения подошел к концу</p>
+    <button (click)="toMainMenu()">Вернуться на главную</button>
+  </div>
+</div>
+
+<ng-template #invalidConfigs>
+  <p>Настройки воспроизведения неверны, необходимо указать их повторно</p>
+  <button (click)="toConfigs()">Перейти к настройкам</button>
+</ng-template>
