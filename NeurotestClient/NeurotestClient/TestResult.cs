@@ -9,7 +9,7 @@ namespace NeurotestServer
     public class TestResult
     {
         /*
-         * Culculates statistics by a given answers
+         * Calculates statistics by a given answers
          */
         public TestResult(ulong subjectID, List<Answer> answers)
         {
@@ -18,7 +18,9 @@ namespace NeurotestServer
             AccuracyInPieces = CulcAccuraciesInPieces(answers);
             AccuracyInPercents = CulcAccuraciesInPercents(answers, AccuracyInPieces);
             UnanswerdQuestionCount = Convert.ToUInt16(answers.Where(answer => answer.ElapsedTime == -1.0f).Count());
-            UnansweredQuestionPercentage = UnanswerdQuestionCount / answers.Count();
+
+            /* Answers count will never be 0, so we can just devide by it */
+            UnansweredQuestionPercentage = UnanswerdQuestionCount / (float)answers.Count() * 100.0f;
             SimilarEmotionsCount = CulcSimilarAnswersCount(answers);
             Durations = CulcDurations(answers);
             MinReactionSpeeds = CulcMinSpeeds(answers);
@@ -36,6 +38,7 @@ namespace NeurotestServer
         }
         public string ToCSVString()
         {
+            const string floatFormat = "0.00";
             StringBuilder builder = new StringBuilder();
 
             builder.Append(SubjectID);
@@ -49,38 +52,38 @@ namespace NeurotestServer
 
             foreach (EmotionType type in AccuracyInPercents.Keys)
             {
-                builder.Append(AccuracyInPercents[type]);
+                builder.Append(AccuracyInPercents[type].ToString(floatFormat));
                 builder.Append(";");
             }
 
-            builder.Append(UnanswerdQuestionCount);
+            builder.Append(UnanswerdQuestionCount.ToString(floatFormat));
             builder.Append(";");
-            builder.Append(UnansweredQuestionPercentage);
+            builder.Append(UnansweredQuestionPercentage.ToString(floatFormat));
             builder.Append(";");
             builder.Append(SimilarEmotionsCount);
             builder.Append(";");
 
             foreach (EmotionType type in Durations.Keys)
             {
-                builder.Append(Durations[type]);
+                builder.Append(Durations[type].ToString(floatFormat));
                 builder.Append(";");
             }
 
             foreach (EmotionType type in MinReactionSpeeds.Keys)
             {
-                builder.Append(MinReactionSpeeds[type]);
+                builder.Append(MinReactionSpeeds[type].ToString(floatFormat));
                 builder.Append(";");
             }
 
             foreach (EmotionType type in MeanReactionSpeeds.Keys)
             {
-                builder.Append(MeanReactionSpeeds[type]);
+                builder.Append(MeanReactionSpeeds[type].ToString(floatFormat));
                 builder.Append(";");
             }
 
             foreach (EmotionType type in MaxReactionSpeeds.Keys)
             {
-                builder.Append(MaxReactionSpeeds[type]);
+                builder.Append(MaxReactionSpeeds[type].ToString(floatFormat));
                 builder.Append(";");
             }
 
@@ -88,7 +91,7 @@ namespace NeurotestServer
             {
                 foreach (EmotionSeverity severity in MeanSpeedsBySubcategory[type].Keys)
                 {
-                    builder.Append(MeanSpeedsBySubcategory[type][severity]);
+                    builder.Append(MeanSpeedsBySubcategory[type][severity].ToString(floatFormat));
                     builder.Append(";");
                 }
             }
@@ -126,12 +129,22 @@ namespace NeurotestServer
         private static Dictionary<EmotionType, float> CulcAccuraciesInPercents(List<Answer> answers,
             Dictionary<EmotionType, ushort> accuraciesInPieces)
         {
-            float angerAccuracy = accuraciesInPieces[EmotionType.Anger] / CountByType(answers, EmotionType.Anger);
-            float astonishmentAccuracy = accuraciesInPieces[EmotionType.Astonishment] / CountByType(answers, EmotionType.Astonishment);
-            float disgustAccuracy = accuraciesInPieces[EmotionType.Disgust] / CountByType(answers, EmotionType.Disgust);
-            float fearAccuracy = accuraciesInPieces[EmotionType.Fear] / CountByType(answers, EmotionType.Fear);
-            float happinessAccuracy = accuraciesInPieces[EmotionType.Happiness] / CountByType(answers, EmotionType.Happiness);
-            float sadnessAccuracy = accuraciesInPieces[EmotionType.Sadness] / CountByType(answers, EmotionType.Sadness);
+            /* 
+             * All 'CountByType' values will never be 0.
+             * There is no need in additional verification to devide by them.
+             */
+            float angerAccuracy = accuraciesInPieces[EmotionType.Anger] /
+                (float)CountByType(answers, EmotionType.Anger) * 100.0f;
+            float astonishmentAccuracy = accuraciesInPieces[EmotionType.Astonishment] /
+                (float)CountByType(answers, EmotionType.Astonishment) * 100.0f;
+            float disgustAccuracy = accuraciesInPieces[EmotionType.Disgust] /
+                (float)CountByType(answers, EmotionType.Disgust) * 100.0f;
+            float fearAccuracy = accuraciesInPieces[EmotionType.Fear] /
+                (float)CountByType(answers, EmotionType.Fear) * 100.0f;
+            float happinessAccuracy = accuraciesInPieces[EmotionType.Happiness] /
+                (float)CountByType(answers, EmotionType.Happiness) * 100.0f;
+            float sadnessAccuracy = accuraciesInPieces[EmotionType.Sadness] /
+                (float)CountByType(answers, EmotionType.Sadness) * 100.0f;
 
             Dictionary<EmotionType, float> accuracies = new Dictionary<EmotionType, float>()
             {
@@ -279,6 +292,7 @@ namespace NeurotestServer
         private static ushort CountByType(List<Answer> answers, EmotionType type)
         {
             List<Answer> filtered = FilterByEmotionType(answers, type);
+            Debug.Assert(filtered.Count() > 0, $"Expected quantity of type '{type.ToString("G")}' to be greater then 0.");
             return Convert.ToUInt16(filtered.Count());
         }
         /*

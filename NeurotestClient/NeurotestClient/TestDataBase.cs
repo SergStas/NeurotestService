@@ -17,7 +17,7 @@ namespace NeurotestServer
         public static void SubmitTestResult(TestResult result)
         {
             /* Writing all answers to CSV file */
-            string filename = Convert.ToString(result.SubjectID) + ".csv";
+            string filename = $"Answers{Convert.ToString(result.SubjectID)}.csv";
             string path = Path.Combine(m_ResultsDir, filename);
             StringBuilder builder = new StringBuilder(c_AnswerCSVHeader);
 
@@ -58,6 +58,55 @@ namespace NeurotestServer
             }
 
             return subjects;
+        }
+        /*
+         * This method seeks best and worst recognized emotion types for subject with given ID.
+         * First value in the tuple stands for best recognized emotion, second - for worst one.
+         * If there is no subject with given ID it returns tuple of undefined emotion types.
+         */
+        public static (EmotionType, EmotionType) GetBestAndWorstRecognizedEmotionTypesForSubject(ulong subjectID)
+        {
+            /*
+             * Reading all results from statistics file.
+             * We should skip first row, because it is a csv header.
+             */
+            string statisticsFilePath = Path.Combine(m_ResultsDir, c_StatisticsFile);
+            List<string> resultRows = File.ReadAllText(statisticsFilePath).Split("\n").Skip(1).ToList();
+
+            /* Predicate to determine if row belongs to subject */
+            bool IsIDMatch(string csvRow)
+            {
+                string[] parameters = csvRow.Split(";");
+                string IDString = parameters[0];
+
+                return IDString == Convert.ToString(subjectID);
+            }
+
+            string subjectResult = resultRows.FindLast(IsIDMatch);
+            if (subjectResult == default(string))
+            {
+                /* Subject with this ID not found */
+                return (EmotionType.Undefined, EmotionType.Undefined);
+            }
+
+            /* Fetching accuracies in percents for emotion types */
+            string[] parameters = subjectResult.Split(";");
+            Dictionary<EmotionType, float> accuraciesInPercents = new Dictionary<EmotionType, float>
+            {
+                { EmotionType.Anger, Convert.ToSingle(parameters[7]) },
+                { EmotionType.Astonishment, Convert.ToSingle(parameters[8]) },
+                { EmotionType.Disgust, Convert.ToSingle(parameters[9]) },
+                { EmotionType.Fear, Convert.ToSingle(parameters[10]) },
+                { EmotionType.Happiness, Convert.ToSingle(parameters[11]) },
+                { EmotionType.Sadness, Convert.ToSingle(parameters[12]) },
+            };
+
+
+            /* Finding keys(aka emotion types) with max and min values */
+            EmotionType best = accuraciesInPercents.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+            EmotionType worst = accuraciesInPercents.Aggregate((x, y) => x.Value <= y.Value ? x : y).Key;
+
+            return (best, worst);
         }
         private static void UpdateNextSubjectID()
         {

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NeurotestServer.Logging;
 
 namespace NeurotestServer
 {
@@ -28,7 +30,7 @@ namespace NeurotestServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -69,6 +71,9 @@ namespace NeurotestServer
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            loggerFactory.AddFile("log.txt");
+            ILogger logger = loggerFactory.CreateLogger("FileLogger");
         }
     }
 }

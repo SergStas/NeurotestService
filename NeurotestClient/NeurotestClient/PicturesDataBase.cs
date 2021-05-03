@@ -87,7 +87,7 @@ namespace NeurotestServer
          */
         private static List<string> ReadDataBase()
         {
-            List<string> picturePaths = new List<string>(c_MaxPicturesCount);
+            List<string> picturePaths = new List<string>(c_PicturesCount);
 
             foreach (string emotionDir in Directory.GetDirectories(m_PicturesDir))
             {
@@ -104,14 +104,12 @@ namespace NeurotestServer
                 (Utils.GetFirstDigit(Path.GetFileName(path)) != '3')
             );
             Debug.Assert(wrongPictures.Count() == 0, $"Database contains wrong pictures: {string.Join(", ", wrongPictures.ToArray())}.");
-            Debug.Assert(picturePaths.Count() == c_MaxPicturesCount,
-                $"Changes in database detected. Expected {c_MaxPicturesCount} pictures, got {picturePaths.Count()}.");
 
             return picturePaths;
         }
 
         private const string c_DataBaseDir = @"DataBase\Pictures";  // Path to the pictures directory relative to the main server directory
-        private const ushort c_MaxPicturesCount = 211;  // Maximum total number of pictures
+        private const ushort c_PicturesCount = 209;  // Total number of pictures
         private static readonly string m_PicturesDir = Path.Combine(Directory.GetCurrentDirectory(), c_DataBaseDir);  // Absolute path to the directory with pictures
         private static readonly List<string> m_PicturePaths = ReadDataBase();  // Absolute paths to all pictures
     }
