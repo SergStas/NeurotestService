@@ -69,6 +69,8 @@
 
     <h1>Тест завершен, все ответы записаны</h1>
 
+    <button (click)="toVideo()">Перейти к сессии просмотра видео</button><br>
+
     <button (click)="testingService.showResults()"
             *ngIf="!testingService.displayResults && testingService.showEndMessage">
       Показать результаты

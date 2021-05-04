@@ -1,5 +1,5 @@
 <div class="container" *ngIf="isConfigsValid(); else invalidConfigs">
-  <div *ngIf="watchSession">
+  <div *ngIf="watchSession" class="video-container">
     <p>Видео {{index + 1}} из {{videoService.sessionPlaylist.length}}</p>
 
       <vg-player (onPlayerReady)="onPlayerReady($event)">

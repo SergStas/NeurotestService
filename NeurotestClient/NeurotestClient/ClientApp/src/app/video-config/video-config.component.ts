@@ -3,6 +3,7 @@ import {VideoConfigService} from "../shared/video-config.service";
 import {NetworkService, VideoInfo} from "../shared/network.service";
 import {ClientService} from "../shared/client.service";
 import {Router} from "@angular/router";
+import { type } from 'os';
 
 @Component({
   selector: 'app-video-config',
@@ -89,16 +90,18 @@ export class VideoConfigComponent implements OnInit {
 
   showAutoload() {
       this._displayMenu =
-        this._displayControlConfig =
-        this._displayDurationInputs =
-        this._displayLimitInput =
-        this._displayList =
-        this._displayNameSelector =
-        this._displayTypeSelector = false;
-      this._displayAutoload = true;
-      this._message = '';
+      this._displayControlConfig =
+      this._displayDurationInputs =
+      this._displayLimitInput =
+      this._displayList =
+      this._displayNameSelector =
+      this._displayTypeSelector = false;
+    this._displayAutoload = true;
+    this._message = '';
 
-      this._auto = this._networkService.getDefaultVideos(this._clientService.clientId);
+    this._networkService.getDefaultVideos(this._clientService.clientId).subscribe(
+      (data: { url: string, type: string }[]) => this._auto = data.map(o => this.convertToVideoInfo(o))
+    );
   }
 
   goToPlayer() {
@@ -119,7 +122,9 @@ export class VideoConfigComponent implements OnInit {
     this._displayList = true;
     this._message = '';
 
-    this._videos = this._networkService.getAllVideos();
+    this._networkService.getAllVideos().subscribe(
+      (data: { url: string, type: string }[]) => this._videos = data.map(o => this.convertToVideoInfo(o))
+    );
   }
 
   showControlConfig() {
@@ -216,5 +221,13 @@ export class VideoConfigComponent implements OnInit {
       '';
 
     return this._message == '';
+  }
+
+  private convertToVideoInfo(obj: { type: string, url: string }): VideoInfo {
+    return {
+      url: obj.url,
+      type: obj.type,
+      name: obj.url.split('/')[obj.url.split('/').length - 1]
+    }
   }
 }

@@ -39,7 +39,7 @@ export class WatchInfo {
 }
 
 export class VideoSessionResult {
-  watchSessions: WatchInfo[];
+  watchSession: WatchInfo[];
   subjectId: string;
 }
 
@@ -69,26 +69,29 @@ export class NetworkService {
     return this.httpClient.post('api/test', params);
   }
 
-  getAllVideos() { //TODO
-    return [
+  getAllVideos() {
+    return this.httpClient.get('api/video');
+    /*return [
       { type: 'Happiness', name: 'hap1.mp4', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' },
       { type: 'Happiness', name: 'hap2.mp4', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4' },
       { type: 'Sadness', name: 'sad.mp4', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4' },
       { type: 'Astonishment', name: 'ast1.mp4', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4' },
       { type: 'Fear', name: 'fear1.mp4', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4' },
       { type: 'Disgust', name: 'dis1.mp4', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4' }
-    ];
+    ];*/
   }
 
-  getDefaultVideos(id: number) { //TODO
-    return [
+  getDefaultVideos(id: number) {
+    return this.httpClient.get('api/video' + '/' + id);
+    /*return [
       { type: 'Happiness', name: 'hap2.mp4', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' },
       { type: 'Sadness', name: 'sad.mp4', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4' }
-    ];
+    ];*/
   }
 
   submitResult(result: VideoSessionResult) { //TODO
-    console.log(result);
-    console.log('Session result submitted');
+    return this.httpClient.post('api/video', result);
+    /*console.log(result);
+    console.log('Session result submitted');*/
   }
 }

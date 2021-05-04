@@ -38,4 +38,8 @@ export class TestingModuleComponent implements OnInit{
   getElapsed(answer: Answer) {
     return Number.parseFloat(answer.ElapsedTime);
   }
+
+  toVideo() {
+    this.router.navigate(['/video-config'])
+  }
 }

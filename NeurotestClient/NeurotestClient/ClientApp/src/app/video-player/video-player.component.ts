@@ -4,6 +4,7 @@ import {VideoConfigService} from "../shared/video-config.service";
 import {Router} from "@angular/router";
 import {interval, Subscription} from "rxjs";
 import {ClientService} from "../shared/client.service";
+import { DatePipe, formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-video-player',
@@ -100,7 +101,7 @@ export class VideoPlayerComponent implements OnInit {
   }
 
   private static currentTimestamp() {
-    return parseInt((Date.now() / 1000).toString())
+    return formatDate(Date.now(), 'dd MMM yyyy HH:mm:ss', 'en-US', '+0500').toString()
   }
 
   private setPauseTimer() {
@@ -155,8 +156,8 @@ export class VideoPlayerComponent implements OnInit {
 
     this._networkService.submitResult({
       subjectId: this._clientService.clientId.toString(),
-      watchSessions: this._watchResults
-    })
+      watchSession: this._watchResults
+    }).subscribe();
   }
 
   toConfigs() {
