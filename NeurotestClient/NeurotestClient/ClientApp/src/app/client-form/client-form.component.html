@@ -1,4 +1,4 @@
-<div class="client-form">
+<div class="container">
   <h1>Информация о пациенте</h1>
 
   <label>
@@ -57,7 +57,7 @@
 
   <button (click)="confirm()">Принять</button>
 
-  <div class="validation-error" *ngIf="errorMessage">
+  <div class="error" *ngIf="errorMessage">
     {{errorMessage}}
   </div>
 </div>

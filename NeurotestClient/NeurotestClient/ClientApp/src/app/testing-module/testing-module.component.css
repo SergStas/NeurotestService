@@ -3,6 +3,11 @@ img {
   height: 480px;
 }
 
+.thumbnail {
+  width: 240px;
+  height: 144px;
+}
+
 .questionBlock {
   display: flex;
   flex-direction: column;

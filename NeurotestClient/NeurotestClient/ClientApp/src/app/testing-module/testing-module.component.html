@@ -26,7 +26,7 @@
       <table>
         <tr>
           <td>
-            <button class="input-button" (click)="testingService.submitAnswer('Happiness')">
+            <button class="input-button" (click)="testingService.submitAnswer('Happiness')" #input>
               1. Счастье
             </button>
           </td>
@@ -66,20 +66,19 @@
   </div>
 
   <div class="endMessage" *ngIf="testingService.showEndMessage">
-
     <h1>Тест завершен, все ответы записаны</h1>
 
     <button (click)="toVideo()">Перейти к сессии просмотра видео</button><br>
+
+    <div class="button-bar">
+      <button (click)="rerun()">Пройти еще раз</button>
+      <button (click)="back()">Изменить параметры теста</button>
+    </div>
 
     <button (click)="testingService.showResults()"
             *ngIf="!testingService.displayResults && testingService.showEndMessage">
       Показать результаты
     </button><br>
-
-    <button (click)="rerun()">Пройти еще раз</button><br>
-
-    <button (click)="back()">Изменить параметры теста</button>
-
   </div>
 
   <div class="testResults" *ngIf="testingService.displayResults">
@@ -91,8 +90,7 @@
       <li *ngFor="let answer of testingService.testResults; let i = index">
 
         Вопрос {{i + 1}} - {{(testingService.isCorrect(answer) ? 'Верно' : 'Ошибка')}}<br>
-        <img src="{{answer.Question | question}}"
-             width="240" height="120" alt=""><br>
+        <img src="{{answer.Question | question}}" class="thumbnail" alt=""><br>
 
         <div *ngIf="getElapsed(answer) >= 0">
           Ваш ответ - {{

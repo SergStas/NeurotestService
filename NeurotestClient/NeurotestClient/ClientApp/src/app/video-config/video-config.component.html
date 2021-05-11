@@ -1,28 +1,31 @@
 <div class="container">
-  <div *ngIf="message">
-    <p>{{message}}</p>
-  </div>
 
   <div class="vidconf-type-selector" *ngIf="displayMenu">
-    <button (click)="showAutoload()">Автоподбор видео</button>
-
-    <button (click)="showManualSelector()">Выбрать видео</button>
+    <div class="button-bar">
+      <button (click)="showAutoload()">Автоподбор видео</button>
+      <button (click)="showManualSelector()">Выбрать видео вручную</button>
+    </div>
   </div>
 
   <div class="vidconf-auto-submit" *ngIf="displayAutoload">
     <p>Будут воспроизведены видео:</p>
     <p *ngFor="let video of auto; let i = index">{{i + 1}}. {{video.name}} ({{video.type | emotion}})</p>
-    <button (click)="showControlConfig()">Принять</button>
-    <button (click)="showManualSelector()">Настроить вручную</button>
+
+    <div class="button-bar">
+      <button (click)="showControlConfig()">Принять</button>
+      <button (click)="showManualSelector()">Настроить вручную</button>
+    </div>
+
     <button (click)="showMenu()">Назад</button>
   </div>
 
   <div class="vidconf-manual" *ngIf="displayList">
     <p>Выбрано {{selected.length}} видео (максимум - 5)</p>
-    <li *ngFor="let video of selected">
+
+    <div *ngFor="let video of selected">
       {{video.name}} ({{video.type | emotion}})
       <button (click)="delete(video.name)">X</button>
-    </li>
+    </div>
 
     <div class="vidconf-video-type-selector" *ngIf="displayTypeSelector">
       <p> Выберите тип:</p>
@@ -61,9 +64,10 @@
     <button (click)="add()" [disabled]="selected.length >= 5"
             *ngIf="!(displayTypeSelector || displayNameSelector)">Добавить</button>
 
-    <button (click)="showControlConfig()" [disabled]="!selected.length">Далее</button>
-
-    <button (click)="showMenu()">Назад</button>
+    <div class="button-bar">
+      <button (click)="showControlConfig()" [disabled]="!selected.length">Далее</button>
+      <button (click)="showMenu()">Назад</button>
+    </div>
   </div>
 
   <div class="vidconf-control-type" *ngIf="displayControlConfig">
@@ -92,9 +96,14 @@
       </div>
     </div>
 
-    <button (click)="showMenu()">Назад</button>
+    <div class="button-bar">
+      <button (click)="submitConfigs()">Готово</button>
+      <button (click)="showMenu()">Назад</button>
+    </div>
+  </div>
 
-    <button (click)="submitConfigs()">Готово</button>
+  <div *ngIf="message" class="error">
+    {{message}}
   </div>
 
 </div>

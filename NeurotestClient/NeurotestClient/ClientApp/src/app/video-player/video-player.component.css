@@ -4,5 +4,9 @@ video {
 }
 
 .video-container {
-  height: 600px
+  height: 480px
+}
+
+.container {
+  border: none;
 }

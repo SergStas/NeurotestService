@@ -157,7 +157,7 @@ export class VideoPlayerComponent implements OnInit {
     this._networkService.submitResult({
       subjectId: this._clientService.clientId.toString(),
       watchSession: this._watchResults
-    }).subscribe();
+    })
   }
 
   toConfigs() {
@@ -165,7 +165,7 @@ export class VideoPlayerComponent implements OnInit {
   }
 
   toMainMenu() {
-    this._router.navigate(['/'])
+    this._router.navigate(['main-menu'])
   }
 
   switchNext() {

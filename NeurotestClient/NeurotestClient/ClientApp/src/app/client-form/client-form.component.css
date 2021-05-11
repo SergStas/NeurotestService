@@ -16,18 +16,3 @@
   max-height: 10px;
   margin-bottom: 20px;
 }
-
-input[type="text"], input[type="number"], input[type="date"] {
-  height: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
-}
-
-.validation-error {
-  margin-bottom: 20px;
-  border: 1px solid #f88;
-  background: #fcc;
-  font-weight: bold;
-  padding: 15px;
-}

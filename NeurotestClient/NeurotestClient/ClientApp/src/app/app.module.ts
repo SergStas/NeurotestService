@@ -19,6 +19,7 @@ import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 
 const routes: Routes = [
   { path: 'client-manager', component: ClientManagerComponent },
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'config-master', component: ConfigMasterComponent },
   { path: 'test-module', component: TestingModuleComponent },
   { path: 'video-config', component: VideoConfigComponent },
-  { path: 'video-player', component: VideoPlayerComponent }
+  { path: 'video-player', component: VideoPlayerComponent },
+  { path: 'main-menu', component: MainMenuComponent }
 ];
 
 @NgModule({
@@ -39,7 +41,8 @@ const routes: Routes = [
         QuestionPipe,
         EmotionPipe,
         VideoConfigComponent,
-        VideoPlayerComponent
+        VideoPlayerComponent,
+        MainMenuComponent
     ],
   imports: [
     RouterModule.forRoot(routes),

@@ -1,9 +1,12 @@
 .container {
-  padding-top: 3rem;
-  width: 800px;
-  margin: 0 auto;
+  border: 1px solid #ccc;
+  width: 100%;;
   display: flex;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
   flex-direction: column;
+  align-items: center;
+  padding: 30px;
 }
 
 button {
@@ -15,4 +18,29 @@ button {
   background: #eee;
   transition: .3s all;
   cursor: pointer;
+}
+
+input[type="text"], input[type="number"], input[type="date"] {
+  height: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+p {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.error {
+  margin: 10px;
+  border: 1px solid #f88;
+  background: #fcc;
+  font-weight: bold;
+  padding: 15px;
+}
+
+.button-bar button {
+  margin: 10px 5px;
 }

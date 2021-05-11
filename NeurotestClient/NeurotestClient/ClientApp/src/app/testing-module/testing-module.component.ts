@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {Router} from "@angular/router";
 import { Answer } from '../shared/network.service';
 import {TestingService} from "../shared/testing.service";
+import {RootPageStateService} from "../shared/root-page-state.service";
 
 @Component({
   selector: 'app-testing-module',
@@ -11,15 +12,27 @@ import {TestingService} from "../shared/testing.service";
 export class TestingModuleComponent implements OnInit{
   constructor(
     public testingService: TestingService,
-    public router: Router
-  ) { }
+    public router: Router,
+    private rootPageService: RootPageStateService
+  ) {
+    router.events.subscribe(_ => rootPageService.displayHeader())
+  }
+
+  @ViewChild('input')
+  private buttons: ElementRef;
 
   beginSession() {
     this.testingService.startTest();
+    this.rootPageService.hideHeader();
+
+    setTimeout(() => {
+      this.buttons.nativeElement.focus();
+    }, 0);
   }
 
   abort() {
     this.testingService.abortTest();
+    this.rootPageService.displayHeader();
   }
 
   back() {
@@ -32,6 +45,7 @@ export class TestingModuleComponent implements OnInit{
   }
 
   rerun() {
+    this.rootPageService.displayHeader();
     this.testingService.setup();
   }
 

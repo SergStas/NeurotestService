@@ -1,19 +1,11 @@
-.container {
-  display: inline-block;
-}
-
 .general {
   align-self: center;
   font-size: 1.4rem;
 }
 
-.emotion-distribution {
+.input-bar {
   align-self: center;
   font-size: 1.2rem;
-}
-
-label {
-  margin-right: 20px;
 }
 
 .tip {
