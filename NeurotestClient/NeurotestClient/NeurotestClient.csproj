@@ -28,6 +28,7 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\app\shared\root-page-state.service.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\shared\video-config.service.ts" />
   </ItemGroup>
 
