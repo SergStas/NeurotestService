@@ -16,3 +16,7 @@
   max-height: 10px;
   margin-bottom: 20px;
 }
+
+textarea {
+  margin-top: 5px;
+}
