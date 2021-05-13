@@ -3,6 +3,7 @@ import { BehaviorSubject, interval, Subscription } from "rxjs";
 import { Answer, NetworkService, Question, QuestionJson } from "./network.service";
 import {TestConfigService} from "./test-config.service";
 import { ClientService } from "./client.service";
+import { FileService } from "./file.service";
 
 @Injectable({providedIn: 'root'})
 export class TestingService {
@@ -55,10 +56,26 @@ export class TestingService {
     return this.end;
   }
 
+  get error() {
+    return this._error;
+  }
+  private _error = ''
+
+  get isAdvancedStats() {
+    return this._advStats;
+  }
+  private _advStats = false;
+
+  get tableData() {
+    return this._table;
+  }
+  private _table: string[][]
+
   public constructor(
     private configService: TestConfigService,
     private networkService: NetworkService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private _fileService: FileService
   ) {}
 
   setup() {
@@ -115,7 +132,8 @@ export class TestingService {
     this.networkService.saveResult({
       SubjectId: this.clientService.clientId.toString(),
       Answers: this.answers
-    }).subscribe();
+    }).subscribe((csv: string) => this._fileService.testCsvString = csv);
+    this.parseCSV(this._fileService.testCSVString)
   }
 
   private setQuestion() {
@@ -153,5 +171,25 @@ export class TestingService {
 
   isCorrect(a: Answer) {
     return Number.parseFloat(a.ElapsedTime) >= 0 && a.Question.Type.toLowerCase() == a.UserInput.toLowerCase();
+  }
+
+  downloadResults() {
+    if (!this._fileService.saveTestResult())
+      this._error = 'Не удалось загрузить файл'
+  }
+
+  switchAdv(b: boolean) {
+    this._advStats = b;
+  }
+
+  private parseCSV(csv: String) {
+    const rowsCount = csv.split('\n')[0].split(';').length;
+    const result = [];
+    for (let i = 0; i < rowsCount; i++)
+      result.push([
+        csv.split('\n')[0].split(';')[i],
+        csv.split('\n')[1].split(';')[i]
+      ]);
+    this._table = result;
   }
 }

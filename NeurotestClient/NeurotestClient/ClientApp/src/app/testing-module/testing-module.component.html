@@ -68,20 +68,39 @@
   <div class="endMessage" *ngIf="testingService.showEndMessage">
     <h1>Тест завершен, все ответы записаны</h1>
 
-    <button (click)="toVideo()">Перейти к сессии просмотра видео</button><br>
+    <div class="button-bar">
+      <button (click)="toVideo()">Перейти к сессии просмотра видео</button><br>
+    </div>
 
     <div class="button-bar">
       <button (click)="rerun()">Пройти еще раз</button>
       <button (click)="back()">Изменить параметры теста</button>
     </div>
 
-    <button (click)="testingService.showResults()"
-            *ngIf="!testingService.displayResults && testingService.showEndMessage">
-      Показать результаты
-    </button><br>
+    <div class="button-bar">
+      <button (click)="testingService.showResults()"
+              *ngIf="!testingService.displayResults">
+        Показать результаты
+      </button>
+      <button (click)="testingService.switchAdv(true)"
+              *ngIf="testingService.displayResults && !testingService.isAdvancedStats">
+        Подробная статистика
+      </button>
+      <button (click)="testingService.switchAdv(false)"
+              *ngIf="testingService.displayResults && testingService.isAdvancedStats">
+        Меньше статистики
+      </button>
+      <button (click)="testingService.downloadResults()">
+        Сохранить результат в формате CVS
+      </button>
+
+      <div class="error" *ngIf="testingService.error">
+        {{testingService.error}}
+      </div>
+    </div>
   </div>
 
-  <div class="testResults" *ngIf="testingService.displayResults">
+  <div class="testResults" *ngIf="testingService.displayResults && !testingService.isAdvancedStats">
 
     Корректность - {{testingService.correctCount}} из
     {{testingService.questionsCount}} ({{testingService.accuracy * 100 | number:'1.1-2'}}%)<br>
@@ -107,12 +126,29 @@
 
       </li>
     </ul>
+  </div>
 
+  <div *ngIf="testingService.displayResults && testingService.isAdvancedStats">
+    <table *ngIf="testingService.tableData; else noTableData">
+      <tr *ngFor="let row of testingService.tableData">
+        <td *ngFor="let value of row">
+          {{value}}
+        </td>
+      </tr>
+    </table>
   </div>
 
   <button (click)="back()" *ngIf="!testingService.showEndMessage && !testingService.testSession">Вернуться к настройкам</button>
 </div>
 
 <ng-template #noQuestion>
-  Не удалось загрузить вопрос
+  <div class="error">
+    Не удалось загрузить вопрос
+  </div>
+</ng-template>
+
+<ng-template #noTableData>
+  <div class="error">
+    Не удалось загрузить подробную информацию
+  </div>
 </ng-template>

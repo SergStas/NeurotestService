@@ -89,7 +89,8 @@ export class NetworkService {
     ];*/
   }
 
-  submitResult(result: VideoSessionResult) { //TODO
+  submitResult(result: VideoSessionResult) {
+    console.log(result);
     return this.httpClient.post('api/video', result);
     /*console.log(result);
     console.log('Session result submitted');*/
