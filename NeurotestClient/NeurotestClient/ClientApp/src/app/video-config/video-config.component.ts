@@ -76,7 +76,7 @@ export class VideoConfigComponent implements OnInit {
 
   ngOnInit(): void {
     if (this._clientService.clientId == null) {
-      this._message = 'Данные о пациенте отсутсвуют, пожалуйста, проведите сессию тестирования или выберите видео вручную';
+      this._message = 'Данные о пациенте отсутсвуют, пожалуйста, проведите сессию тестирования';
       this._displayControlConfig =
         this._displayList =
         this._displayDurationInputs =
@@ -147,7 +147,7 @@ export class VideoConfigComponent implements OnInit {
 
   showMenu() {
     if (this._clientService.clientId == null) {
-      this._message = 'Данные о пациенте отсутсвуют, пожалуйста, проведите сессию тестирования или выберите видео вручную';
+      this._message = 'Данные о пациенте отсутсвуют, пожалуйста, проведите сессию тестирования';
       this._displayControlConfig =
         this._displayList =
         this._displayDurationInputs =

@@ -41,11 +41,40 @@
 
   <div *ngIf="end">
     <p>Список воспроизведения подошел к концу</p>
-    <button (click)="toMainMenu()">Вернуться на главную</button>
+    <div class="button-bar">
+      <button (click)="toMainMenu()">Вернуться на главную</button>
+    </div>
+    <div class="button-bar">
+      <button (click)="showStatistics()" *ngIf="!displayStats">Показать статистику</button>
+      <button (click)="downloadCSV()">Сохранить результат в CSV</button>
+    </div>
+
+    <div class="error" *ngIf="error">
+      {{error}}
+    </div>
+  </div>
+
+  <div *ngIf="displayStats">
+    <table *ngIf="tableData; else noTableData">
+      <tr *ngFor="let row of tableData">
+        <td *ngFor="let value of row">
+          {{value}}
+        </td>
+      </tr>
+    </table>
   </div>
 </div>
 
 <ng-template #invalidConfigs>
-  <p>Настройки воспроизведения неверны, необходимо указать их повторно</p>
+  <div class="error">
+    Настройки воспроизведения неверны, необходимо указать их повторно
+  </div>
+
   <button (click)="toConfigs()">Перейти к настройкам</button>
+</ng-template>
+
+<ng-template #noTableData>
+  <div class="error">
+    Не удалось загрузить статистику
+  </div>
 </ng-template>

@@ -4,7 +4,7 @@
   (keydown.3)="testingService.submitAnswer('Astonishment')"
   (keydown.4)="testingService.submitAnswer('Disgust')"
   (keydown.5)="testingService.submitAnswer('Fear')"
-  (keydown.6)="testingService.submitAnswer('Anger')"> <!--todo-->
+  (keydown.6)="testingService.submitAnswer('Anger')">
 
   <button (click)="beginSession()" *ngIf="!testingService.testSession && !testingService.showEndMessage">Начать тест</button><br>
 
@@ -91,7 +91,7 @@
         Меньше статистики
       </button>
       <button (click)="testingService.downloadResults()">
-        Сохранить результат в формате CVS
+        Сохранить результат в формате CSV
       </button>
 
       <div class="error" *ngIf="testingService.error">

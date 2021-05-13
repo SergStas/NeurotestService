@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {interval, Subscription} from "rxjs";
 import {ClientService} from "../shared/client.service";
 import { DatePipe, formatDate } from '@angular/common';
+import { FileService } from "../shared/file.service";
 
 @Component({
   selector: 'app-video-player',
@@ -36,6 +37,15 @@ export class VideoPlayerComponent implements OnInit {
   get current() {
     return this._playlist[this._index];
   }
+  get error() {
+    return this._error;
+  }
+  get tableData() {
+    return this._table;
+  }
+  get displayStats(): boolean {
+    return this._displayStats;
+  }
 
   private _playlist: VideoInfo[] = [];
   private _index = 0;
@@ -46,6 +56,9 @@ export class VideoPlayerComponent implements OnInit {
   private _currentTime = 0;
   private _pauseTime = 0;
   private _isPause = false;
+  private _displayStats = false;
+  private _table: String[][];
+  private _error = '';
 
   private _subscription: Subscription;
   private _currentWatch: WatchInfo = {startTime: null, video: null, endTime: null};
@@ -55,7 +68,8 @@ export class VideoPlayerComponent implements OnInit {
     private _networkService: NetworkService,
     private _videoService: VideoConfigService,
     private _clientService: ClientService,
-    private _router: Router
+    private _router: Router,
+    private _fileService: FileService
   ) { }
 
   ngOnInit(): void {
@@ -154,6 +168,8 @@ export class VideoPlayerComponent implements OnInit {
     this._watchSession = false;
     this._end = true;
 
+    this._fileService.setVideoCSVString = this.getCSV();
+    this._table = this._fileService.parseCSV(this._fileService.videoCSVString)
     this._networkService.submitResult({
       subjectId: this._clientService.clientId.toString(),
       watchSession: this._watchResults
@@ -171,5 +187,25 @@ export class VideoPlayerComponent implements OnInit {
   switchNext() {
     this.submitWatchResults()
     this.next()
+  }
+
+  private getCSV() {
+    let result = '';
+    for (let i = 0; i < this._watchResults.length; i++)
+      result += `${this._watchResults[i].video.name
+        };${this._watchResults[i].video.type
+        };${this._watchResults[i].startTime
+        };${this._watchResults[i].endTime
+        }\n`
+    return result;
+  }
+
+  downloadCSV() {
+    if (!this._fileService.saveVideoResult())
+      this._error = 'Не удалось загрузить статистику просмотра'
+  }
+
+  showStatistics() {
+    this._displayStats = true;
   }
 }

@@ -69,7 +69,7 @@ export class TestingService {
   get tableData() {
     return this._table;
   }
-  private _table: string[][]
+  private _table: String[][]
 
   public constructor(
     private configService: TestConfigService,
@@ -132,8 +132,8 @@ export class TestingService {
     this.networkService.saveResult({
       SubjectId: this.clientService.clientId.toString(),
       Answers: this.answers
-    }).subscribe((csv: string) => this._fileService.testCsvString = csv);
-    this.parseCSV(this._fileService.testCSVString)
+    }).subscribe((csv: string) => this._fileService.setTestCSVString = csv);
+    this._table = this._fileService.parseCSV(this._fileService.testCSVString)
   }
 
   private setQuestion() {
@@ -180,16 +180,5 @@ export class TestingService {
 
   switchAdv(b: boolean) {
     this._advStats = b;
-  }
-
-  private parseCSV(csv: String) {
-    const rowsCount = csv.split('\n')[0].split(';').length;
-    const result = [];
-    for (let i = 0; i < rowsCount; i++)
-      result.push([
-        csv.split('\n')[0].split(';')[i],
-        csv.split('\n')[1].split(';')[i]
-      ]);
-    this._table = result;
   }
 }
