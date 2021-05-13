@@ -37,10 +37,10 @@ namespace NeurotestServer
         public bool IsSimilar() => Question.Type == s_SimilarEmotions[UserInput];
         public Question Question { get; }  // The original question
         public EmotionType UserInput { get; }  // The answer given by a user
-        public float ElapsedTime { get; }  // Time taken by the user to answer in seconds. -1 means "No answer"
+        public float ElapsedTime { get; }  // Time taken by the user to answer in milliseconds. -1 means "No answer"
         protected Answer(Question question, EmotionType userInput, float elapsedTime)
         {
-            Debug.Assert((elapsedTime >= -1.0f) && (elapsedTime <= 10.0f), "Time value must be in range -1-10");
+            Debug.Assert((elapsedTime >= -1.0f) && (elapsedTime <= 10000.0f), "Time value must be in range -1-10000");
 
             Question = question;
             UserInput = userInput;
