@@ -41,7 +41,9 @@
 
   <label>
     Род деятельности:
-    <input type="text" [(ngModel)]="job">
+    <select [(ngModel)]="job">
+      <option *ngFor="let job of jobs">{{job}}</option>
+    </select>
   </label><br>
 
   <label>

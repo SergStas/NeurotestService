@@ -8,6 +8,9 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./client-form.component.css']
 })
 export class ClientFormComponent implements OnInit {
+  get jobs(): string[] {
+    return this._jobs;
+  }
   public errorMessage = '';
 
   public lastName = '';
@@ -22,6 +25,12 @@ export class ClientFormComponent implements OnInit {
   public phoneNumber = '';
 
   public client: SubjectInfo;
+
+  private _jobs = [
+    "Вупсень",
+    "Пупсень",
+    "Другое"
+  ]
 
   constructor(private clientService: ClientService, private router: Router) { }
 

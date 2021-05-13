@@ -109,7 +109,7 @@ export class TestingService {
     this.answers.push({
       Question: this.currentQuestion,
       UserInput: answer,
-      ElapsedTime: this.timer.toString()
+      ElapsedTime: (this.timer * 1000).toString()
     });
 
     this.nextQuestion();
@@ -141,10 +141,10 @@ export class TestingService {
 
     this.question.next(this.questions[this.index]);
     this.timer = 0;
-    let timer = interval(10);
+    let timer = interval(1);
 
     this.sub = timer.subscribe(d => {
-      this.timer = d / 100;
+      this.timer = d / 1000;
       if (Math.abs(this.timer - this.duration) < 1e-5) {
         this.answers.push({
           Question: this.currentQuestion,
