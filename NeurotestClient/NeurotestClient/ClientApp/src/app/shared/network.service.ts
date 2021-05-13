@@ -61,7 +61,7 @@ export class NetworkService {
 
   saveResult(result: TestResult) {
     console.log(result);
-    return this.httpClient.post('api/result', result);
+    return this.httpClient.post('api/result', result, { responseType: 'text' });
   }
 
   getQuestions(params: TestConfig) {

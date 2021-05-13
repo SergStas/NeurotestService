@@ -7,7 +7,7 @@ export class FileService {
   get testCSVString(){
     return this._test;
   }
-  set setTestCSVString(value: string) {
+  set setTestCSVString(value: String) {
     this._test = this._testHeaders + '\n' + value
   }
   private _test: string

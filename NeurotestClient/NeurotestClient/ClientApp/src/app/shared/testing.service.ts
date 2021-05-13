@@ -132,8 +132,10 @@ export class TestingService {
     this.networkService.saveResult({
       SubjectId: this.clientService.clientId.toString(),
       Answers: this.answers
-    }).subscribe((csv: string) => this._fileService.setTestCSVString = csv);
-    this._table = this._fileService.parseCSV(this._fileService.testCSVString)
+    }).subscribe((csv: String) => {
+      this._fileService.setTestCSVString = csv;
+      this._table = this._fileService.parseCSV(this._fileService.testCSVString)
+    });
   }
 
   private setQuestion() {
