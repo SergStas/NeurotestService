@@ -35,7 +35,9 @@ namespace NeurotestServer.Controllers
                     TestDataBase.SubmitTestResult(result);
 
                     m_Logger.LogInformation($"Submitted test result for subject with ID {subjectID}");
-                    return Ok(subjectID);
+
+                    /* Sanding calculated statistics in CSV string format as a response */
+                    return Ok(result.ToCSVString());
                 }
 
                 return BadRequest(ModelState);

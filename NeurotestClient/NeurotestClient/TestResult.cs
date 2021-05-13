@@ -107,11 +107,11 @@ namespace NeurotestServer
         public ushort UnanswerdQuestionCount { get; }  // The number of questions to which the subject did not have time to answer
         public float UnansweredQuestionPercentage { get; }  // The percentage of questions to which the subject did not have time to answer
         public ushort SimilarEmotionsCount { get; }  // The number of answers which is similar to the true emotion type
-        public Dictionary<EmotionType, float> Durations { get; }  // Time taken to complete the test (total and for each emotion) in seconds
-        public Dictionary<EmotionType, float> MinReactionSpeeds { get; }  // Minimum reaction speed for each emotion in seconds
-        public Dictionary<EmotionType, float> MeanReactionSpeeds { get; }  // Mean reaction speed for each emotion in seconds
-        public Dictionary<EmotionType, float> MaxReactionSpeeds { get; }  // Maximum reaction speed for each emotion in seconds
-        public Dictionary<EmotionType, Dictionary<EmotionSeverity, float>> MeanSpeedsBySubcategory { get; }  // Average speed for each emotion's subcategory in seconds
+        public Dictionary<EmotionType, float> Durations { get; }  // Time taken to complete the test (total and for each emotion) in milliseconds
+        public Dictionary<EmotionType, float> MinReactionSpeeds { get; }  // Minimum reaction speed for each emotion in milliseconds
+        public Dictionary<EmotionType, float> MeanReactionSpeeds { get; }  // Mean reaction speed for each emotion in milliseconds
+        public Dictionary<EmotionType, float> MaxReactionSpeeds { get; }  // Maximum reaction speed for each emotion in milliseconds
+        public Dictionary<EmotionType, Dictionary<EmotionSeverity, float>> MeanSpeedsBySubcategory { get; }  // Average speed for each emotion's subcategory in milliseconds
         private static Dictionary<EmotionType, ushort> CulcAccuraciesInPieces(List<Answer> answers)
         {
             Dictionary<EmotionType, ushort> accuracies = new Dictionary<EmotionType, ushort>()
